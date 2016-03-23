@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Use correct character set. -->
+		<meta charset="utf-8">
+		<!-- Tell IE to use the latest, best version (or Chrome Frame if pre-IE11). -->
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+		<!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<meta name="cesium-sandcastle-labels" content="Showcases, DataSources">
+		<title>O.V.O.S.(2)</title>
+		<script type="text/javascript" src="Sandcastle/Sandcastle-header.js"></script>
+		<script type="text/javascript" src="../ThirdParty/requirejs-2.1.9/require.js"></script>
+		<script type="text/javascript">
+			require.config({
+				baseUrl : '../../../Source',
+				waitSeconds : 60
+			});
+		</script> 
+		<script src="../Build/Cesium/Cesium.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<!--<script type="text/javascript" src="transpose.js"></script>-->
+		<style>
+			@import url(../Build/Cesium/Widgets/widgets.css);
+			@import url(Sandcastle/templates/bucket.css);
+			#entete {      
+				height:20px;
+			}
+		</style>
+	</head>
+	<body class="sandcastle-loading" data-sandcastle-bucket="Sandcastle/templates/bucket-requirejs.html">
+		<div id="entete">test
+		<input type="text" id="elevation" name="elevation" placeholder="entrez votre angle d'élévation minimal" />
+		<input type="button" value="Envoyer!"/>
+		</div>
+		<div id="cesiumContainer" class="fullSize"></div>
+		<div id="loadingOverlay"><h1>Loading...</h1></div>
+		<div id="toolbar"></div>
+		<div id="cesiumContainer"></div>
+		<script src="affichage.js"></script>
+		<script id="cesium_sandcastle_script">
+			//Sandcastle_Begin
+
+			/*
+			html, body, #cesiumContainer {
+			      width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+			  }
+			*/
+
+			var viewer = new Cesium.Viewer('cesiumContainer');
+			var scene = viewer.scene;
+			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/essai.czml'));
+			var clock = viewer.clock;
+			var handler;
+
+			/*Sandcastle.addDefaultToolbarButton('Satellites', function() {
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('essai.czml'));
+				alert();
+			});*/
+
+			/*Sandcastle.reset = function(){
+				viewer.dataSources.removeAll();
+				viewer.homeButton.viewModel.command();
+			};
+			Sandcastle_End*/
+
+			Sandcastle.finishedLoading();
+
+			var center = Cesium.Cartesian3.fromDegrees(2, 48);
+			var transform = Cesium.Transforms.northUpEastToFixedFrame(center);
+			//var m = Cesium.Matrix4.fromArray(transform);
+			var p = new Cesium.Cartesian3.fromDegrees(2, 48);
+			var result = Cesium.Matrix4.multiplyByPointAsVector(transform, p, new Cesium.Cartesian3());
+
+			console.log(transform);
+
+			function ITRFtoPLAN (lat, lon, xSatellite, ySatellite, zSatellite){
+				var v = new Cesium.Cartesian3(xSatellite, ySatellite, zSatellite);
+				lat=lat*(Math.PI/180);//seule méthode javascript évidemment faussée
+				lon=lon*(Math.PI/180);
+				console.log(lat, lon);
+				var matrice= new Cesium.Matrix3(-Math.sin(lon),-Math.cos(lon)*Math.sin(lat),Math.cos(lat)*Math.cos(lon),Math.cos(lon),-Math.sin(lat)*Math.sin(lon),Math.cos(lat)*Math.sin(lon),0,Math.cos(lat),Math.sin(lat));
+				//matrice = Math.transpose(matrice);
+				new Cesium.Matrix3.multiplyByVector(matrice, v);
+				console.log(matrice);
+				console.log(result);
+			}
+
+			var ContenuSat = Fichier('SampleData/orbite_itrf.txt');
+			var ContenuStations = Fichier('../data/Networks_Stations/Network_NEN_ell');
+			var i;
+			var j;
+			var ligne =  new Array;
+			var nombre_de_lignes_au_total=ContenuStations.split(/\n/g).length;//nombre de stations
+			var nombrePositionSat = ContenuSat.split(/\n/g).length;//nombre de coordonnées du satellite
+			for (var i=0;i<nombre_de_lignes_au_total;i++){
+			  ligne[i]=ContenuStations.split(/\n/g)[i]
+				var reg=new RegExp("[        ]+", "g");
+				var station = ligne[i].split(reg);//pour chaque station, on calcule l'élévation pour chaque position du satellite
+				(station[2],station[1],station[0]);
+				for (var j=0;j<nombrePositionSat;j++) {
+					ligne[i]=ContenuSat.split(/\n/g)[i]
+					var reg=new RegExp("[ ]+", "g");
+					var sat = ligne[i].split(reg); 
+					var result;
+					result = ITRFtoPLAN(station[2], station[1], sat[1], sat[2], sat[3]);
+					}
+			}
+			function elevation(EstStation, NordStation, hStation, angleLim){
+				var r=Math.sqrt(Math.pow(EstStation,2)+Math.pow(NordStation,2));
+				angle=Math.atan(hStation/r);
+				angle=angle*(180/Math.PI);
+				console.log(angle);
+				if(angle>angleLim){
+					console.log(angle);
+				}
+				else{
+				console.log("satellite pas visible");
+				AffichageFaux(latStation,LonStation);
+				}
+			}
+
+			// var lon = 2;
+			// var lat = 48;
+			// lat=lat*(Math.PI/180);
+			// lon=lon*(Math.PI/180);
+			//console.log(0, 0)
+			// var v = new Cesium.Cartesian3(0, 1, 1);
+			// ITRFtoPLAN(180, 0, 1, 0, 0);
+			/*
+			var ContenuSat = Fichier('orbite_itrf.txt');
+			var i;
+			var ligne =  new Array;
+			var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
+			for (var i=0;i<nombre_de_lignes_au_total;i++){
+				ligne[i]=Contenu.split(/\n/g)[i]
+				var reg=new RegExp("[ ]+", "g");
+				var a = ligne[i].split(reg);
+				//console.log(a[0],a[1],a[2],a[3]);
+				ITRFtoPLAN(48, 2, a[1], a[2], a[3]);
+			}
+			*/
+			</script>
+			<!--<script src="essai.js"></script>
+			<script src="fonction_exemple.js"></script>-->
+			<script src="menu.js"></script>
+			<!--<script src="clientServer.js"></script>-->
+			<script src="../clientServer.js"></script>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$.ajax({
+					url: 'http://localhost:8124/',
+					dataType: "jsonp",
+					jsonpCallback: "_testcb",
+					cache: false,
+					timeout: 100000,
+					success: function(data){
+					    addsatellite(data);
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+					    alert('error ' + textStatus + " " + errorThrown);
+					}
+				});
+			});     
+		</script>
+	</body>
+</html>
