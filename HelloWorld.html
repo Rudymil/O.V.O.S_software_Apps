@@ -49,13 +49,11 @@
 
 			var viewer = new Cesium.Viewer('cesiumContainer');
 			var scene = viewer.scene;
+			Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+	        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+	        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+	        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
 			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
-			//code appartenant a HelloWorld.html qui permet la visualisation d'orbite
-			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
-			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
-			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
-			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
-			//
 			
 			var clock = viewer.clock;
 			var handler;
