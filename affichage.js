@@ -10,7 +10,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 			description:'type: Station GNSS',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost:8080/Apps/SampleData/kml/facilities/GroundStation.png',
+				image : 'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/GroundStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -31,7 +31,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 	            positions_GNSS.billboard.scale = 1.5;
 	            positions_GNSS.billboard.color = Cesium.Color.YELLOW;
 	            positions_GNSS.label.show = true;
-	            positions_GNSS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/Apps/SampleData/kml/facilities/GroundStation.png'.height);
+	            positions_GNSS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 	            positions_GNSS.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);         
 	            positions_GNSS.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
 	            positions_GNSS.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
@@ -49,7 +49,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 			description:'type: Station Laser',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost:8080/Apps/SampleData/kml/facilities/LaserStation.png',
+				image : 'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/LaserStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -71,7 +71,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 	            positions_Laser.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
 	            positions_Laser.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
 	            positions_Laser.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);
-	            positions_Laser.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/Apps/SampleData/kml/facilities/GroundStation.png'.height);
+	            positions_Laser.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 	        }else{
 	            positions_Laser.billboard.scale = 1;
 	            positions_Laser.billboard.color = Cesium.Color.WHITE;
@@ -86,7 +86,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 			description:'type: Station VLBI',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost:8080/Apps/SampleData/kml/facilities/OpticalTrackingStation.png',
+				image : 'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/OpticalTrackingStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -106,7 +106,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 	            positions_VLBI.billboard.color = Cesium.Color.YELLOW;
 	            positions_VLBI.label.show = true;
 	            positions_VLBI.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
-	            positions_VLBI.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/Apps/SampleData/kml/facilities/GroundStation.png'.height);
+	            positions_VLBI.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 	            positions_VLBI.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);
 	            positions_VLBI.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
 	        }else{
@@ -123,7 +123,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 			description:'type: Station DORIS',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost:8080/Apps/SampleData/kml/facilities/RadarStation.png',
+				image : 'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/RadarStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -145,7 +145,7 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 	            positions_DORIS.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
 	            positions_DORIS.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
 	            positions_DORIS.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);
-	            positions_DORIS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/Apps/SampleData/kml/facilities/GroundStation.png'.height);
+	            positions_DORIS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost:8080/projet_developpement_2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
 	        }else{
 	            positions_DORIS.billboard.scale = 1;
 	            positions_DORIS.billboard.color = Cesium.Color.WHITE;
