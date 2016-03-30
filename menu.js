@@ -83,21 +83,45 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
 };
 options.push(option1);*/
 
+//menu pour choix camera
+//pour l'instant pas de 'View in ITRF'
 Sandcastle.addToolbarMenu([{
     text : 'Choix de la caméra'
 },{
     text : 'View in ICRF',
     onselect : function (){
         viewInICRF();
-        Affichage('../data/Networks_Stations/Network_IDS_ell');
+		//permet l'affichage des stations
+        Affichage('../data/Networks_Stations/Network_IDS_ell');//la fonction Affichage se trouve dans le fichier affichage.js (ligne 159)
         Affichage('../data/Networks_Stations/Network_ILRS_ell');
         Affichage('../data/Networks_Stations/Network_IVS_ell');
         Affichage('../data/Networks_Stations/Network_NEN_ell');
+		//permet l'affichage des satellites
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
+		
         Sandcastle.highlight(viewInICRF);
         console.log(Sandcastle.highlight);
     }
 },{
+	//pour l'instant fait la meme chose que viewInICRF
     text : 'View in ITRF'
+	onselect : function (){
+        viewInITRF();
+		//permet l'affichage des stations
+		Affichage('../data/Networks_Stations/Network_IDS_ell');//la fonction Affichage se trouve dans le fichier affichage.js (ligne 159)
+        Affichage('../data/Networks_Stations/Network_ILRS_ell');
+        Affichage('../data/Networks_Stations/Network_IVS_ell');
+        Affichage('../data/Networks_Stations/Network_NEN_ell');
+		//permet l'affichage des satellites
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
+		
+		Sandcastle.highlight(viewInITRF);
+        console.log(Sandcastle.highlight);
 }]);
 
 Sandcastle.reset = function(){
