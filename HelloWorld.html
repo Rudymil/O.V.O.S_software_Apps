@@ -50,12 +50,9 @@
 			var viewer = new Cesium.Viewer('cesiumContainer');
 			var scene = viewer.scene;
 
-			Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
-	        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
-	        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
-	        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
-
-	        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
+			/* 
+			si on veut afficher des objets en vue initiale
+			*/
 			
 			var clock = viewer.clock;
 			var handler;
