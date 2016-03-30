@@ -84,7 +84,18 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
 options.push(option1);*/
 
 Sandcastle.addToolbarMenu([{ // Menu choix ITRF/ICRF
-    text : 'Choix de la caméra'
+    text : 'Choix de la caméra',
+    onselect : function (){
+        viewInICRF(); // function viewInICRF() ligne 27
+        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Sandcastle.highlight(viewInICRF);
+        console.log(Sandcastle.highlight);
+        // affichage des satellites
+        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
+    }
 },{
     text : 'View in ICRF',
     onselect : function (){
