@@ -83,21 +83,30 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
 };
 options.push(option1);*/
 
-Sandcastle.addToolbarMenu([{
+Sandcastle.addToolbarMenu([{ // Menu choix ITRF/ICRF
     text : 'Choix de la caméra'
 },{
     text : 'View in ICRF',
     onselect : function (){
         viewInICRF();
-        Affichage('../data/Networks_Stations/Network_IDS_ell');
-        Affichage('../data/Networks_Stations/Network_ILRS_ell');
-        Affichage('../data/Networks_Stations/Network_IVS_ell');
-        Affichage('../data/Networks_Stations/Network_NEN_ell');
+        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Sandcastle.highlight(viewInICRF);
         console.log(Sandcastle.highlight);
     }
 },{
-    text : 'View in ITRF'
+    text : 'View in ITRF',
+    onselect : function (){
+        viewInICRF();
+        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
+        Sandcastle.highlight(viewInICRF);
+        console.log(Sandcastle.highlight);
+    }
 }]);
 
 Sandcastle.reset = function(){
