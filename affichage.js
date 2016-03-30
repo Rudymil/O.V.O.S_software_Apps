@@ -157,15 +157,16 @@ function point(lat, lon, namePoint, fichier){ // il s agit d une fonction d affi
 }
 
 function Affichage(fichier){ // l s agit de la fonction globale d affichage des stations au sol
-	var Contenu = Fichier(fichier);
+	var Contenu = Fichier(fichier); // function Fichier(fichier) juste en dessous
 	var i;
 	var ligne =  new Array;
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-	for(var i=0;i<nombre_de_lignes_au_total;i++){
-		ligne[i]=Contenu.split(/\n/g)[i]
-		var reg=new RegExp("[        ]+", "g");
-		var a = ligne[i].split(reg);
+	for(var i=0;i<nombre_de_lignes_au_total;i++){ // pour chaque ligne
+		ligne[i]=Contenu.split(/\n/g)[i]; // on recupere la ligne
+		var reg=new RegExp("[        ]+", "g"); // Le constructeur RegExp permet de créer un objet représentant une expression rationnelle permettant de reconnaître un motif (pattern en anglais) dans un texte. "g" : La correspondance est cherchée partout (sur plusieurs lignes).
+		var a = ligne[i].split(reg); // on extrait le pattern de la ligne correspondante
 		//if (fichier=='Networks_Stations/Network_IDS_ell'){
+			// function point(lat, lon, namePoint, fichier) ligne 5
 			point(a[2],a[1],a[0],fichier); // il s agit d une fonction d affichage d une station au sol // elle n s occupe que des parametres d affichage d une station
 		//}
 	}
