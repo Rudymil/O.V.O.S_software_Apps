@@ -201,7 +201,7 @@ scene.morphComplete.addEventListener(function(){
 });
 
 Sandcastle.reset = function(){
-    viewer.entities.removeAll();
-    viewer.dataSources.removeAll();
+    //viewer.entities.removeAll();
+    //viewer.dataSources.removeAll();
     //DataSourceCollection.removeAll();
 };
