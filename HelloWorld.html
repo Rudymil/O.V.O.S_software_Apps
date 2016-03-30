@@ -35,8 +35,9 @@
 		</div>
 		<div id="cesiumContainer" class="fullSize"></div>
 		<div id="loadingOverlay"><h1>Loading...</h1></div>
-		<div id="toolbar"></div> <!-- Menu choix ITRF/ICRF -->
-		<div id="cesiumContainer"></div><script src="affichage.js"></script>
+		<div id="toolbar"></div> <!-- Menu choix ITRF/ICRF menu.js ligne 86 -->
+		<div id="cesiumContainer"></div>
+		<script src="affichage.js"></script>
 		<script id="cesium_sandcastle_script">
 			//Sandcastle_Begin
 
@@ -48,7 +49,7 @@
 
 			var viewer = new Cesium.Viewer('cesiumContainer');
 			var scene = viewer.scene;
-			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/essai.czml'));
+			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
 			//code appartenant a HelloWorld.html qui permet la visualisation d'orbite
 			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
 			viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
@@ -60,7 +61,7 @@
 			var handler;
 
 			/*Sandcastle.addDefaultToolbarButton('Satellites', function() {
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('essai.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('GPS.czml'));
 				alert();
 			});*/
 

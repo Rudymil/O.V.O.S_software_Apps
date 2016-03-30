@@ -46,7 +46,7 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
         var option1 = {
             text : lignes[i],
             onselect : function(){
-                viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/essai.czml'));
+                viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
                 viewInICRF();
                 /*Affichage('../data/Networks_Stations/Network_IDS_ell');
                 Affichage('../data/Networks_Stations/Network_ILRS_ell');
@@ -72,7 +72,7 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
 /*var option1 = {
     text : "toto",
     onselect : function(){
-        viewer.dataSources.add(Cesium.CzmlDataSource.load('essai.czml'));
+        viewer.dataSources.add(Cesium.CzmlDataSource.load('GPS.czml'));
         viewInICRF();
         Affichage('Networks_Stations/Network_IDS_ell');
         Affichage('Networks_Stations/Network_ILRS_ell');
@@ -88,24 +88,36 @@ Sandcastle.addToolbarMenu([{ // Menu choix ITRF/ICRF
 },{
     text : 'View in ICRF',
     onselect : function (){
-        viewInICRF();
+        viewInICRF(); // function viewInICRF() ligne 27
         Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Sandcastle.highlight(viewInICRF);
         console.log(Sandcastle.highlight);
+        // affichage des satellites
+        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
+	    viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
     }
 },{
     text : 'View in ITRF',
     onselect : function (){
-        viewInICRF();
+        viewInICRF(); // function viewInICRF() ligne 27
         Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
         Sandcastle.highlight(viewInICRF);
         console.log(Sandcastle.highlight);
+        // affichage des satellites
+        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
+        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
+		viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
     }
 }]);
 

@@ -87,7 +87,7 @@ window.setInterval(function(){
 }, 1000);
 
 var req = new XMLHttpRequest();
-req.open("GET", "SampleData/essai.czml", true); 
+req.open("GET", "SampleData/GPS.czml", true); 
 req.onreadystatechange = myCode; // the handler 
 req.send(null);
 
