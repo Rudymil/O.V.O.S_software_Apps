@@ -15,7 +15,7 @@ function base(scene,time){ // developpement 2016 // vue initiale
     if(scene.mode !== Cesium.SceneMode.SCENE3D){
 		return;
     }
-    var baseToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+    var baseToFixed = Cesium.Transforms.computebaseToFixedMatrix(time);
     if(Cesium.defined(baseToFixed)){
         var camera = viewer.camera;
         var offset = Cesium.Cartesian3.clone(camera.position);
@@ -41,7 +41,7 @@ function itrf(scene,time){ // developpement 2016 // vue ITRF
     if(scene.mode !== Cesium.SceneMode.SCENE3D){
         return;
     }
-    var itrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
+    var itrfToFixed = Cesium.Transforms.computeitrfToFixedMatrix(time);
     if(Cesium.defined(itrfToFixed)){
         var camera = viewer.camera;
         var offset = Cesium.Cartesian3.clone(camera.position);
@@ -131,9 +131,9 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
 };
 options.push(option1);*/
 
-Sandcastle.addToolbarMenu(
+Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 	[
-		{ // Menu choix ITRF/ICRF
+		{
 		    text : 'Choix de la caméra',
 		    onselect : function (){
 		        view(); // function view()
@@ -187,6 +187,7 @@ Sandcastle.addToolbarMenu(
 Sandcastle.reset = function(){
     viewer.entities.removeAll();
     scene.primitives.removeAll();
+    viewer.dataSources.removeAll();
     scene.tweens.removeAll();
     viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     clock.multiplier = 1.0;
@@ -201,7 +202,7 @@ scene.morphComplete.addEventListener(function(){
 });
 
 Sandcastle.reset = function(){
-    //viewer.entities.removeAll();
-    //viewer.dataSources.removeAll();
-    //DataSourceCollection.removeAll();
+    viewer.entities.removeAll();
+    viewer.dataSources.removeAll();
+    DataSourceCollection.removeAll();
 };
