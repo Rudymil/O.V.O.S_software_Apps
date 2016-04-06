@@ -136,6 +136,16 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		{
 		    text : 'Choix de la caméra',
 		    onselect : function (){
+		    	viewer.entities.removeAll();
+			    scene.primitives.removeAll();
+			    viewer.dataSources.removeAll();
+			    scene.tweens.removeAll();
+			    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+			    clock.multiplier = 1.0;
+			    scene.preRender.removeEventListener(icrf);
+			    scene.preRender.removeEventListener(itrf);
+			    scene.preRender.removeEventListener(base);
+			    scene.globe.enableLighting = false;
 		        view(); // function view()
 		        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js function Affichage(fichier)
@@ -143,29 +153,66 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js function Affichage(fichier)
 		        Sandcastle.highlight(view);
 		        console.log(Sandcastle.highlight);
-		        // affichage des satellites
-		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
 		    }
 		},{
 		    text : 'View in ICRF',
 		    onselect : function (){
+		    	viewer.entities.removeAll();
+			    scene.primitives.removeAll();
+			    viewer.dataSources.removeAll();
+			    scene.tweens.removeAll();
+			    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+			    clock.multiplier = 1.0;
+			    scene.preRender.removeEventListener(icrf);
+			    scene.preRender.removeEventListener(itrf);
+			    scene.preRender.removeEventListener(base);
+			    scene.globe.enableLighting = false;
 		        viewInICRF(); // function viewInICRF()
+		        // affichage des stations
 		        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js function Affichage(fichier)
 		        Sandcastle.highlight(viewInICRF);
 		        console.log(Sandcastle.highlight);
-		        // affichage des satellites
-		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
-			    viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
+		        // affichage des satellites GPS SampleData\CZML_ICRF\GPS_CZML_ICRF
+		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN01_orbit_GNSS_GPS.out_FRED.czml'));
+			    viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN02_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN03_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN04_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN05_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN07_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN08_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN09_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN10_orbit_GNSS_GPS.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN11_orbit_GNSS_GPS.out_FRED.czml'));
+				// affichage des satellites Galileo SampleData\CZML_ICRF\GALILEO_CZML_ICRF
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN01_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN02_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN03_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN04_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN05_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN06_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN07_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN08_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN09_orbit_GNSS_GAL.out_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN10_orbit_GNSS_GAL.out_FRED.czml'));
+				// affichage des satellites Grasp SampleData\CZML_ICRF\GRASP_CZML_ICRF orbit_GRASP_JPL.txt_FRED.czml
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GRASP_CZML_ICRF/orbit_GRASP_JPL.txt_FRED.czml'));
 		    }
 		},{
 		    text : 'View in ITRF',
 		    onselect : function (){
+		    	viewer.entities.removeAll();
+			    scene.primitives.removeAll();
+			    viewer.dataSources.removeAll();
+			    scene.tweens.removeAll();
+			    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+			    clock.multiplier = 1.0;
+			    scene.preRender.removeEventListener(icrf);
+			    scene.preRender.removeEventListener(itrf);
+			    scene.preRender.removeEventListener(base);
+			    scene.globe.enableLighting = false;
 		        viewInITRF(); // function viewInITRF()
 		        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js function Affichage(fichier)
@@ -173,12 +220,30 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js function Affichage(fichier)
 		        Sandcastle.highlight(viewInITRF);
 		        console.log(Sandcastle.highlight);
-		        // affichage des satellites
-		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GPS.czml'));
-		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP1.czml'));
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP2.czml'));
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP3.czml'));
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/GRASP4.czml'));
+				// affichage des satellites GPS SampleData\CZML_ITRF\GPS_CZML_ITRF
+		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN01_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+			    viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN02_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN03_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN04_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN05_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN06_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN07_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN08_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN09_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN10_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+				// affichage des satellites Galileo SampleData\CZML_ITRF\GALILEO_CZML_ITRF
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN01_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN02_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN03_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN04_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN05_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN06_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN07_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN08_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN09_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN10_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+				// affichage des satellites Grasp SampleData\CZML_ITRF\GRASP_CZML_ITRF
+				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GRASP_CZML_ITRF/orbite_itrf2016_GRASP.txt_FRED'));
 		    }
 		}
 	]
