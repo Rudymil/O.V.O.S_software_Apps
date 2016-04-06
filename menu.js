@@ -114,7 +114,7 @@ function addsatellite(data){ // cette fonction recupere les titres des fichiers 
     //console.log(option1);
     options.push(option1);*/
     }
-    Sandcastle.addToolbarMenu(options);
+   Sandcastle.addToolbarMenu(options);
 }
 
 /*var option1 = {
@@ -136,17 +136,8 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		{
 		    text : 'Choix de la caméra',
 		    onselect : function (){
-		    	viewer.entities.removeAll();
-			    scene.primitives.removeAll();
-			    viewer.dataSources.removeAll();
-			    scene.tweens.removeAll();
-			    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-			    clock.multiplier = 1.0;
-			    scene.preRender.removeEventListener(icrf);
-			    scene.preRender.removeEventListener(itrf);
-			    scene.preRender.removeEventListener(base);
-			    scene.globe.enableLighting = false;
 		        view(); // function view()
+		        // affichage des stations software\data\Networks_Stations
 		        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js function Affichage(fichier)
@@ -157,18 +148,8 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		},{
 		    text : 'View in ICRF',
 		    onselect : function (){
-		    	viewer.entities.removeAll();
-			    scene.primitives.removeAll();
-			    viewer.dataSources.removeAll();
-			    scene.tweens.removeAll();
-			    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-			    clock.multiplier = 1.0;
-			    scene.preRender.removeEventListener(icrf);
-			    scene.preRender.removeEventListener(itrf);
-			    scene.preRender.removeEventListener(base);
-			    scene.globe.enableLighting = false;
 		        viewInICRF(); // function viewInICRF()
-		        // affichage des stations
+		        // affichage des stations software\data\Networks_Stations
 		        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js function Affichage(fichier)
@@ -203,17 +184,8 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		},{
 		    text : 'View in ITRF',
 		    onselect : function (){
-		    	viewer.entities.removeAll();
-			    scene.primitives.removeAll();
-			    viewer.dataSources.removeAll();
-			    scene.tweens.removeAll();
-			    viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-			    clock.multiplier = 1.0;
-			    scene.preRender.removeEventListener(icrf);
-			    scene.preRender.removeEventListener(itrf);
-			    scene.preRender.removeEventListener(base);
-			    scene.globe.enableLighting = false;
 		        viewInITRF(); // function viewInITRF()
+		        // affichage des stations software\data\Networks_Stations
 		        Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js function Affichage(fichier)
 		        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js function Affichage(fichier)
@@ -269,5 +241,5 @@ scene.morphComplete.addEventListener(function(){
 Sandcastle.reset = function(){
     viewer.entities.removeAll();
     viewer.dataSources.removeAll();
-    DataSourceCollection.removeAll();
+    //DataSourceCollection.removeAll();
 };
