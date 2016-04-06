@@ -29,14 +29,15 @@
 		</style>
 	</head>
 	<body class="sandcastle-loading" data-sandcastle-bucket="Sandcastle/templates/bucket-requirejs.html">
+		<!-- Formulaire pour quoi faire ? -->
 		<div id="entete">test
-		<input type="text" id="elevation" name="elevation" placeholder="entrez votre angle d'élévation minimal" />
-		<input type="button" value="Envoyer!"/>
-		</div>
+			<input type="text" id="elevation" name="elevation" placeholder="entrez votre angle d'élévation minimal" />
+			<input type="button" value="Envoyer!"/>
+		</div> <!-- Formulaire pour quoi faire ? -->
 		<div id="cesiumContainer" class="fullSize"></div>
 		<div id="loadingOverlay"><h1>Loading...</h1></div>
 		<div id="toolbar"></div> <!-- Menu choix ITRF/ICRF menu.js ligne 86 -->
-		<div id="cesiumContainer"></div>
+		<!-- <div id="cesiumContainer"></div> -->
 		<script src="affichage.js"></script>
 		<script id="cesium_sandcastle_script">
 			//Sandcastle_Begin
@@ -51,11 +52,11 @@
 			var scene = viewer.scene;
 
 			 
-			/*//si on veut afficher des objets en vue initiale
+			//si on veut afficher des objets en vue initiale
 			Affichage('../data/Networks_Stations/Network_IDS_ell'); // affichage.js ligne 159 function Affichage(fichier)
 	        Affichage('../data/Networks_Stations/Network_ILRS_ell'); // affichage.js ligne 159 function Affichage(fichier)
 	        Affichage('../data/Networks_Stations/Network_IVS_ell'); // affichage.js ligne 159 function Affichage(fichier)
-	        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)*/
+	        Affichage('../data/Networks_Stations/Network_NEN_ell'); // affichage.js ligne 159 function Affichage(fichier)
 		
 			var clock = viewer.clock;
 			var handler;
@@ -73,8 +74,8 @@
 
 			Sandcastle.finishedLoading();
 
-			var center = Cesium.Cartesian3.fromDegrees(2, 48);
-			var transform = Cesium.Transforms.northUpEastToFixedFrame(center);
+			/*var center = Cesium.Cartesian3.fromDegrees(2, 48);
+			var transform = Cesium.Transforms.northUpEastToFixedFrame(center); // Cesium.Transforms.northUpEastToFixedFrame(origin, ellipsoid, result) → Matrix4. Calcule une matrice de transformation 4x4 a partir d un cadre de reference avec un axe nord-up-est centree à l origine prevu pour les ellipsoides fournies fixes cadre de reference. Les axes locaux sont definis comme: L axe des x points dans la direction du nord local. Les points de l axe Y dans la direction de la normale à la surface ellipsoidale, qui passe par la position. Les points axe z dans la direction de l est locale.
 			//var m = Cesium.Matrix4.fromArray(transform);
 			var p = new Cesium.Cartesian3.fromDegrees(2, 48);
 			var result = Cesium.Matrix4.multiplyByPointAsVector(transform, p, new Cesium.Cartesian3());
@@ -125,7 +126,7 @@
 				console.log("satellite pas visible");
 				AffichageFaux(latStation,LonStation);
 				}
-			}
+			}*/
 
 			// var lon = 2;
 			// var lat = 48;
@@ -152,7 +153,7 @@
 		<script src="fonction_exemple.js"></script>-->
 		<script src="menu.js"></script>
 		<!--<script src="clientServer.js"></script>-->
-		<script src="../clientServer.js"></script>
+		<!--<script src="../clientServer.js"></script>-->
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$.ajax({
