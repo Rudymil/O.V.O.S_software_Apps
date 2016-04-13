@@ -41,50 +41,85 @@ var clock = viewer.clock;*/
 
 function icrf(scene,time){ // cette fonctione prepare une vue en ICRF en calculant les elements permettant de présenter une vue en ICRF
 		console.log("function icrf(scene,time){");
-    if(scene.mode !== Cesium.SceneMode.SCENE3D){
-    		console.log("if(scene.mode !== Cesium.SceneMode.SCENE3D){return;}");
-    		console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D ="+Cesium.SceneMode.SCENE3D);
-        return;
-    }
-    var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur du Cadre international de référence celeste (FRGC / ITRF) cadre inertiel axes aux axes de chassis fixes terrestres (ITRF) a un moment donné. Cette fonction peut retourner undefined si les données nécessaires pour faire la transformation ne sont pas encore charges.
-    	console.log("icrfToFixed = "+icrfToFixed);
-    if(Cesium.defined(icrfToFixed)){
-    		console.log("if(Cesium.defined(icrfToFixed)){");
-        var camera = viewer.camera;
-        	console.log("camera = "+camera);
-        var offset = Cesium.Cartesian3.clone(camera.position);
-        	console.log("offset = "+offset);
-        var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
-        	console.log("transform = "+transform);
-        camera.lookAtTransform(transform, offset);
-			console.log("camera.lookAtTransform(transform, offset);");
-        	console.log("}");
-    }
-    	console.log("}");
+		console.log(time);
+    /*if(scene.mode === Cesium.SceneMode.SCENE2D){ // si affichage en 2D plan
+    		console.log("if scene.mode = "+scene.mode+" === Cesium.SceneMode.SCENE2D ="+Cesium.SceneMode.SCENE2D);
+    	var toWindowCoordinates = Cesium.Transforms.pointToWindowCoordinates(modelViewProjectionMatrix,viewportTransformation,point,result); // transforme un point des coordonnees modeles aux coordonnees de la fenetre
+    		console.log("icrfToFixed = "+toWindowCoordinates);
+		if(Cesium.defined(toWindowCoordinates)){
+				console.log("if(Cesium.defined(icrfToFixed)){");
+		    var camera = viewer.camera;
+		    	console.log("camera = "+camera);
+		    var offset = Cesium.Cartesian3.clone(camera.position);
+		    	console.log("offset = "+offset);
+		    var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
+		    	console.log("transform = "+transform);
+		    camera.lookAtTransform(transform, offset);
+				console.log("camera.lookAtTransform(transform, offset);");
+				console.log("}");
+		}
+	    	console.log("}");
+	}*/
+    if(scene.mode === Cesium.SceneMode.SCENE3D){ // si affichage en 3D globe
+    		console.log("if scene.mode = "+scene.mode+" === Cesium.SceneMode.SCENE3D = "+Cesium.SceneMode.SCENE3D);
+	    var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur du Repere international de référence celeste (FRGC / ITRF) cadre inertiel axes aux axes de chassis fixes terrestres (ITRF) a un moment donné. Cette fonction peut retourner undefined si les données nécessaires pour faire la transformation ne sont pas encore charges.
+	    	console.log("icrfToFixed = "+icrfToFixed);
+	    if(Cesium.defined(icrfToFixed)){
+	    		console.log("if(Cesium.defined(icrfToFixed)){");
+	        var camera = viewer.camera;
+	        	console.log("camera = "+camera);
+	        var offset = Cesium.Cartesian3.clone(camera.position);
+	        	console.log("offset = "+offset);
+	        var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
+	        	console.log("transform = "+transform);
+	        camera.lookAtTransform(transform, offset);
+				console.log("camera.lookAtTransform(transform, offset);");
+				console.log("}");
+		}
+	    	console.log("}");
+	}
+		console.log("}");
 }
 
 function itrf(scene,time){ // developpement 2016 // vue ITRF
 		console.log("function itrf(scene,time){");
-    if(scene.mode !== Cesium.SceneMode.SCENE3D){
-    		console.log("if(scene.mode !== Cesium.SceneMode.SCENE3D){return;}");
-    		console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D ="+Cesium.SceneMode.SCENE3D);
-        return;
-    }
-    var itrfToFixed = Cesium.Transforms.computeFixedToIcrfMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur des axes de chassis fixes terrestres (ITRF) au Cadre international de reference celeste (ICRF / ICRF) cadre inertiel axes a un moment donne. Cette fonction peut retourner undefined si les donnees necessaires pour faire la transformation ne sont pas encore charges.
-    	console.log("itrfToFixed = "+itrfToFixed);
-    if(Cesium.defined(itrfToFixed)){
-    		console.log("if(Cesium.defined(itrfToFixed)){");
-        var camera = viewer.camera;
-        	console.log("camera = "+camera);
-        var offset = Cesium.Cartesian3.clone(camera.position);
-        	console.log("offset = "+offset);
-        var transform = Cesium.Matrix4.fromRotationTranslation(itrfToFixed);
-        	console.log("transform = "+transform);
-        camera.lookAtTransform(transform, offset);
-        	console.log("camera.lookAtTransform(transform, offset);");
-        	console.log("}");
-    }
-    	console.log("}");
+		console.log(time);
+    /*if(scene.mode === Cesium.SceneMode.SCENE2D){ // si affichage en 2D plan
+    		console.log("if scene.mode = "+scene.mode+" === Cesium.SceneMode.SCENE2D ="+Cesium.SceneMode.SCENE2D);
+    	var toWindowCoordinates = Cesium.Transforms.pointToWindowCoordinates(modelViewProjectionMatrix,viewportTransformation,point,result); // transforme un point des coordonnees modeles aux coordonnees de la fenetre
+    		console.log("icrfToFixed = "+toWindowCoordinates);
+		if(Cesium.defined(toWindowCoordinates)){
+				console.log("if(Cesium.defined(icrfToFixed)){");
+		    var camera = viewer.camera;
+		    	console.log("camera = "+camera);
+		    var offset = Cesium.Cartesian3.clone(camera.position);
+		    	console.log("offset = "+offset);
+		    var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
+		    	console.log("transform = "+transform);
+		    camera.lookAtTransform(transform, offset);
+				console.log("camera.lookAtTransform(transform, offset);");
+				console.log("}");
+		}
+	    	console.log("}");
+	}*/
+	if(scene.mode === Cesium.SceneMode.SCENE3D){ // si affichage en 3D globe
+			console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D = "+Cesium.SceneMode.SCENE3D);
+	    var fixedToIcrf = Cesium.Transforms.computeFixedToIcrfMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur des axes de chassis fixes terrestres (ITRF) au Cadre international de reference celeste (ICRF / ICRF) cadre inertiel axes a un moment donne. Cette fonction peut retourner undefined si les donnees necessaires pour faire la transformation ne sont pas encore charges.
+	    	console.log("fixedToIcrf = "+fixedToIcrf);
+	    if(Cesium.defined(fixedToIcrf)){
+	    		console.log("if(Cesium.defined(fixedToIcrf)){");
+	        var camera = viewer.camera;
+	        	console.log("camera = "+camera);
+	        var offset = Cesium.Cartesian3.clone(camera.position);
+	        	console.log("offset = "+offset);
+	        var transform = Cesium.Matrix4.fromRotationTranslation(fixedToIcrf);
+	        	console.log("transform = "+transform);
+	        camera.lookAtTransform(transform, offset);
+	        	console.log("camera.lookAtTransform(transform, offset);");
+	        	console.log("}");
+	    }
+	    	console.log("}");
+	}
 }
 
 //////////////////////////////////// VIEW EVENTS ////////////////////////////////////
