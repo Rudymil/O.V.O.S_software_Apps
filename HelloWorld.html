@@ -148,29 +148,30 @@
 				ITRFtoPLAN(48, 2, a[1], a[2], a[3]);
 			}
 			*/
+			clock.multiplier = 60; //3*60*60
 		</script>
 		<!--<script src="essai.js"></script>
 		<script src="fonction_exemple.js"></script>-->
 		<script src="menu.js"></script>
 		<!--<script src="clientServer.js"></script>-->
 		<!--<script src="../clientServer.js"></script>-->
-		<script type="text/javascript">
-		$(document).ready(function(){
-			$.ajax({
-				url: 'http://localhost:8080/',
-				dataType: "jsonp",
-				jsonpCallback: "_testcb",
-				cache: false,
-				timeout: 100000,
-				success: function(data){
-				    addsatellite(data);
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-				    //alert('error ' + textStatus + " " + errorThrown);
-				    console.log('error ' + textStatus + " " + errorThrown);
-				}
+		<!--<script type="text/javascript">
+			$(document).ready(function(){
+				$.ajax({
+					url: 'http://localhost:8080/',
+					dataType: "jsonp",
+					jsonpCallback: "_testcb",
+					cache: false,
+					timeout: 100000,
+					success: function(data){
+					    addsatellite(data);
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+					    //alert('error ' + textStatus + " " + errorThrown);
+					    console.log('error ' + textStatus + " " + errorThrown);
+					}
+				});
 			});
-		});
-		</script>
+		</script>-->
 	</body>
 </html>

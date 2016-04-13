@@ -3,22 +3,23 @@ console.log("menu.js chargé"); // affichage dans la console
 /*var scene = viewer.scene;
 var clock = viewer.clock;*/
 
-function include(fileName){
+/*function include(fileName){
 		//console.log("function include(fileName)");
 	document.write("<script type='text/javascript' src='"+fileName+"'></script>" ); // Ecrire un texte directement au document HTML
-}
+}*/
 
-include('visibilite.js');
+//include('visibilite.js');
 	//console.log("include('visibilite.js');");
-include('affichage.js'); // le fichier affichage.js contient toutes les fonctions qui permettront la gestion de l'affichage
+//include('affichage.js'); // le fichier affichage.js contient toutes les fonctions qui permettront la gestion de l'affichage
 	//console.log("include('affichage.js');");
 
 //////////////////////////////////// VIEW EVENTS ////////////////////////////////////
 
 /*function base(scene,time){ // developpement 2016 // vue initiale
 		console.log("function base(scene,time){");
-    if(scene.mode !== Cesium.SceneMode.SCENE3D){
+    /*if(scene.mode !== Cesium.SceneMode.SCENE3D){
     		console.log("if(scene.mode !== Cesium.SceneMode.SCENE3D){return;}");
+    		console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D ="+Cesium.SceneMode.SCENE3D);
 		return;
     }
     var baseToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);
@@ -26,11 +27,11 @@ include('affichage.js'); // le fichier affichage.js contient toutes les fonction
     if(Cesium.defined(baseToFixed)){
     		console.log("if(Cesium.defined(baseToFixed)){");
         var camera = viewer.camera;
-        	//console.log("var camera = viewer.camera;");
+        	//console.log("camera = "+camera);
         var offset = Cesium.Cartesian3.clone(camera.position);
-        	//console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
+        	//console.log("offset = "+offset);
         var transform = Cesium.Matrix4.fromRotationTranslation(baseToFixed);
-        	//console.log("var transform = Cesium.Matrix4.fromRotationTranslation(baseToFixed);");
+        	//console.log("transform = "+transform);
         camera.lookAtTransform(transform, offset);
         	//console.log("camera.lookAtTransform(transform, offset);");
         	//console.log("}");
@@ -42,46 +43,48 @@ function icrf(scene,time){ // cette fonctione prepare une vue en ICRF en calcula
 		console.log("function icrf(scene,time){");
     if(scene.mode !== Cesium.SceneMode.SCENE3D){
     		console.log("if(scene.mode !== Cesium.SceneMode.SCENE3D){return;}");
+    		console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D ="+Cesium.SceneMode.SCENE3D);
         return;
     }
     var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur du Cadre international de référence celeste (FRGC / ITRF) cadre inertiel axes aux axes de chassis fixes terrestres (ITRF) a un moment donné. Cette fonction peut retourner undefined si les données nécessaires pour faire la transformation ne sont pas encore charges.
-    	//console.log("var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);");
+    	console.log("icrfToFixed = "+icrfToFixed);
     if(Cesium.defined(icrfToFixed)){
-    		//console.log("if(Cesium.defined(icrfToFixed)){");
+    		console.log("if(Cesium.defined(icrfToFixed)){");
         var camera = viewer.camera;
-        	//console.log("var camera = viewer.camera;");
+        	console.log("camera = "+camera);
         var offset = Cesium.Cartesian3.clone(camera.position);
-        	//console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
+        	console.log("offset = "+offset);
         var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
-        	//console.log("var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);");
+        	console.log("transform = "+transform);
         camera.lookAtTransform(transform, offset);
-			//console.log("camera.lookAtTransform(transform, offset);");
-        	//console.log("}");
+			console.log("camera.lookAtTransform(transform, offset);");
+        	console.log("}");
     }
-    	//console.log("}");
+    	console.log("}");
 }
 
 function itrf(scene,time){ // developpement 2016 // vue ITRF
 		console.log("function itrf(scene,time){");
     if(scene.mode !== Cesium.SceneMode.SCENE3D){
     		console.log("if(scene.mode !== Cesium.SceneMode.SCENE3D){return;}");
+    		console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D ="+Cesium.SceneMode.SCENE3D);
         return;
     }
     var itrfToFixed = Cesium.Transforms.computeFixedToIcrfMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur des axes de chassis fixes terrestres (ITRF) au Cadre international de reference celeste (ICRF / ICRF) cadre inertiel axes a un moment donne. Cette fonction peut retourner undefined si les donnees necessaires pour faire la transformation ne sont pas encore charges.
-    	//console.log("var itrfToFixed = Cesium.Transforms.computeFixedToIcrfMatrix(time);");
+    	console.log("itrfToFixed = "+itrfToFixed);
     if(Cesium.defined(itrfToFixed)){
-    		//console.log("if(Cesium.defined(itrfToFixed)){");
+    		console.log("if(Cesium.defined(itrfToFixed)){");
         var camera = viewer.camera;
-        	//console.log("var camera = viewer.camera;");
+        	console.log("camera = "+camera);
         var offset = Cesium.Cartesian3.clone(camera.position);
-        	//console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
+        	console.log("offset = "+offset);
         var transform = Cesium.Matrix4.fromRotationTranslation(itrfToFixed);
-        	//console.log("var transform = Cesium.Matrix4.fromRotationTranslation(itrfToFixed);");
+        	console.log("transform = "+transform);
         camera.lookAtTransform(transform, offset);
-        	//console.log("camera.lookAtTransform(transform, offset);");
-        	//console.log("}");
+        	console.log("camera.lookAtTransform(transform, offset);");
+        	console.log("}");
     }
-    	//console.log("}");
+    	console.log("}");
 }
 
 //////////////////////////////////// VIEW EVENTS ////////////////////////////////////
@@ -90,63 +93,63 @@ function itrf(scene,time){ // developpement 2016 // vue ITRF
 function view(){ // developpement 2016 // vue initiale
 		console.log("function view(){");
     Sandcastle.declare(view);
-    	//console.log("Sandcastle.declare(view);");
+    	console.log("Sandcastle.declare(view);");
     var vm = viewer.homeButton.viewModel;
-    	//console.log("var vm = viewer.homeButton.viewModel;");
+    	console.log("vm = "+vm);
     vm.duration = 0.0;
-		//console.log("vm.duration = 0.0;");
+		console.log("vm.duration = "+vm.duration);
     vm.command();
-    	//console.log("vm.command();");
+    	console.log("vm.command();");
     vm.duration = 3.0;
-    	//console.log("vm.duration = 3.0;");
-    clock.multiplier = 3*60*60;
-    	//console.log("clock.multiplier = 3*60*60;");
+    	console.log("vm.duration = "+vm.duration);
+    clock.multiplier = 60; //3*60*60
+    	console.log("clock.multiplier = "+clock.multiplier);
     //scene.preRender.addEventListener(base);
     scene.globe.enableLighting = false; // lumiere du soleil
-    	//console.log("scene.globe.enableLighting = false;");
-    	//console.log("}");
+    	console.log("scene.globe.enableLighting = "+scene.globe.enableLighting);
+    	console.log("}");
 }
 
 function viewInICRF(){ // il s agit d une fonction recuperant les resultats de la function icrf(scene, time) et les effectant a la vue
 		console.log("function viewInICRF(){");
     Sandcastle.declare(viewInICRF);
-    	//console.log("Sandcastle.declare(viewInICRF);");
+    	console.log("Sandcastle.declare(viewInICRF);");
 	var vm = viewer.homeButton.viewModel;
-    	//console.log("var vm = viewer.homeButton.viewModel;");
+    	console.log("vm = "+vm);
     vm.duration = 0.0;
-    	//console.log("vm.duration = 0.0;");
+    	console.log("vm.duration = "+vm.duration);
     vm.command();
-    	//console.log("vm.command();");
+    	console.log("vm.command();");
     vm.duration = 3.0;
-    	//console.log("vm.duration = 3.0;");
-    clock.multiplier = 3*60*60;
-    	//console.log("clock.multiplier = 3*60*60;");
+    	console.log("vm.duration = "+vm.duration);
+    clock.multiplier = 60; //3*60*60
+    	console.log("clock.multiplier = "+clock.multiplier);
     scene.preRender.addEventListener(icrf); // function icrf(scene,time)
-    	//console.log("scene.preRender.addEventListener(icrf);");
+    	console.log("scene.preRender.addEventListener(icrf);");
     scene.globe.enableLighting = true; // lumiere du soleil
-    	//console.log("scene.globe.enableLighting = true;");
-    	//console.log("}");
+    	console.log("scene.globe.enableLighting = "+scene.globe.enableLighting);
+    	console.log("}");
 }
 
 function viewInITRF(){ // developpement 2016 // vue ITRF
 		console.log("function viewInITRF(){");
     Sandcastle.declare(viewInITRF);
-    	//console.log("Sandcastle.declare(viewInITRF);");
+    	console.log("Sandcastle.declare(viewInITRF);");
     var vm = viewer.homeButton.viewModel;
-    	//console.log("var vm = viewer.homeButton.viewModel;");
+    	console.log("vm = "+vm);
     vm.duration = 0.0;
-    	//console.log("vm.duration = 0.0;");
+    	console.log("vm.duration = "+vm.duration);
     vm.command();
-    	//console.log("vm.command();");
+    	console.log("vm.command();");
     vm.duration = 3.0;
-    	//console.log("vm.duration = 3.0;");
-    clock.multiplier = 3*60*60;
-    	//console.log("clock.multiplier = 3*60*60;");
+    	console.log("vm.duration = "+vm.duration);
+    clock.multiplier = 60; //3*60*60
+    	console.log("clock.multiplier = "+clock.multiplier);
     scene.preRender.addEventListener(itrf); // function itrf(scene,time)
-    	//console.log("scene.preRender.addEventListener(itrf);");
+    	console.log("scene.preRender.addEventListener(itrf);");
     scene.globe.enableLighting = true; // lumiere du soleil
-    	//console.log("scene.globe.enableLighting = true;");
-    	//console.log("}");
+    	console.log("scene.globe.enableLighting = "+scene.globe.enableLighting);
+    	console.log("}");
 }
 
 ////////////////////////////////////// VIEWS //////////////////////////////////////
@@ -385,7 +388,11 @@ Sandcastle.reset = function(){
     	console.log("viewer.dataSources.removeAll();");
     //DataSourceCollection.removeAll();
     	//console.log("DataSourceCollection.removeAll();");
-    console.log("};");
+    scene.preRender.removeEventListener(icrf);
+    	console.log("scene.preRender.removeEventListener(icrf);");
+    scene.preRender.removeEventListener(itrf);
+    	console.log("scene.preRender.removeEventListener(itrf);");
+    	console.log("};");
 };
 
 ///////////////////////////////////// RESET /////////////////////////////////////

@@ -7,6 +7,7 @@ function include(fileName){ // fonction permettant d inclure un fichier javascri
 }
 
 include('affichage.js');
+	//console.log("include('affichage.js');");
 
 var Fichier = function Fichier(fichier){ // il s agit d une fonction lisant un fichier texte et retournant son contenu dans une chaine de caracteres
     if(window.XMLHttpRequest) obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
@@ -35,6 +36,7 @@ var Fichier = function Fichier(fichier){ // il s agit d une fonction lisant un f
 }*/
 
 function PositionSatellite(){ // fonction renvoyant la position approximative du satellite à chaque temps t de l horloge du viewer // cette fonction recupere les resultats de la function Fichier(fichier) et les affecte au viewer
+	console.log("function PositionSatellite(){");
 	var fichier ='../data/Networks_Stations/Satellite.txt'; // FICHIER INEXISTANT
 	var Contenu = Fichier(fichier);	
 	console.log(Contenu);
@@ -83,6 +85,7 @@ function PositionSatellite(){ // fonction renvoyant la position approximative du
 }
 
 window.setInterval(function(){
+	//console.log("window.setInterval(function(){");
 	//PositionSatellite();
 }, 1000);
 
@@ -91,19 +94,24 @@ req.open("GET", "SampleData/GPS.czml", true);
 req.onreadystatechange = myCode; // the handler 
 req.send(null);
 
-function myCode(){ 
+function myCode(){
+	console.log("function myCode(){");
 	if (req.readyState == 4){ 
 		var doc = window[req.responseText];
 			//alert (doc);
+			console.log(doc);
 			//alert ( req.responseTex);
+			console.log(req.responseTex);
 	}else{
 		//alert("mauvaise req");
+		console.log("mauvaise req");
 	}
 }
 
 myCode();
 
 function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){ // fonction calculant l angle d elevation entre une station au sol et un satelitte dans le repere local de la station
+	console.log("function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){");
 //function elevation(EstStation, NordStation, hStation, EstGRASP, NordGRASP, hGRASP, angleLim){
 
 	deltaEst = X_GRASP - LonStation;
@@ -134,12 +142,15 @@ function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleL
 }
 
 function ConversionStations(lat,lon,h){
+	console.log("function ConversionStations(lat,lon,h){");
 }
 
 function ConversionGRASP(X,Y,Z){
+	console.log("function ConversionGRASP(X,Y,Z){");
 }
 
 function ITRFtoPLAN(lat,lon){
+	console.log("function ITRFtoPLAN(lat,lon){");
 	var matrice= new Matrix3(-sin(lon),cos(lon),0,-sin(lat)*cos(lon),-sin(lat)*sin(lon),cos(lat),cos(lat)*cos(lon),cos(lat)*sin(lon),sin(lat));
 	console.log(matrice);
 }
