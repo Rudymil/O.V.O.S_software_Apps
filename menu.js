@@ -4,14 +4,14 @@ console.log("menu.js chargé"); // affichage dans la console
 var clock = viewer.clock;*/
 
 function include(fileName){
-	console.log("function include(fileName)");
+		//console.log("function include(fileName)");
 	document.write("<script type='text/javascript' src='"+fileName+"'></script>" ); // Ecrire un texte directement au document HTML
 }
 
 include('visibilite.js');
-console.log("include('visibilite.js');");
+	//console.log("include('visibilite.js');");
 include('affichage.js'); // le fichier affichage.js contient toutes les fonctions qui permettront la gestion de l'affichage
-console.log("include('affichage.js');");
+	//console.log("include('affichage.js');");
 
 //////////////////////////////////// VIEW EVENTS ////////////////////////////////////
 
@@ -26,16 +26,16 @@ console.log("include('affichage.js');");
     if(Cesium.defined(baseToFixed)){
     		console.log("if(Cesium.defined(baseToFixed)){");
         var camera = viewer.camera;
-        	console.log("var camera = viewer.camera;");
+        	//console.log("var camera = viewer.camera;");
         var offset = Cesium.Cartesian3.clone(camera.position);
-        	console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
+        	//console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
         var transform = Cesium.Matrix4.fromRotationTranslation(baseToFixed);
-        	console.log("var transform = Cesium.Matrix4.fromRotationTranslation(baseToFixed);");
+        	//console.log("var transform = Cesium.Matrix4.fromRotationTranslation(baseToFixed);");
         camera.lookAtTransform(transform, offset);
-        	console.log("camera.lookAtTransform(transform, offset);");
-        	console.log("}");
+        	//console.log("camera.lookAtTransform(transform, offset);");
+        	//console.log("}");
     }
-    	console.log("}");
+    	//console.log("}");
 }*/
 
 function icrf(scene,time){ // cette fonctione prepare une vue en ICRF en calculant les elements permettant de présenter une vue en ICRF
@@ -45,20 +45,20 @@ function icrf(scene,time){ // cette fonctione prepare une vue en ICRF en calcula
         return;
     }
     var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur du Cadre international de référence celeste (FRGC / ITRF) cadre inertiel axes aux axes de chassis fixes terrestres (ITRF) a un moment donné. Cette fonction peut retourner undefined si les données nécessaires pour faire la transformation ne sont pas encore charges.
-    	console.log("var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);");
+    	//console.log("var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time);");
     if(Cesium.defined(icrfToFixed)){
-    		console.log("if(Cesium.defined(icrfToFixed)){");
+    		//console.log("if(Cesium.defined(icrfToFixed)){");
         var camera = viewer.camera;
-        	console.log("var camera = viewer.camera;");
+        	//console.log("var camera = viewer.camera;");
         var offset = Cesium.Cartesian3.clone(camera.position);
-        	console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
+        	//console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
         var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
-        	console.log("var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);");
+        	//console.log("var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);");
         camera.lookAtTransform(transform, offset);
-			console.log("camera.lookAtTransform(transform, offset);");
-        	console.log("}");
+			//console.log("camera.lookAtTransform(transform, offset);");
+        	//console.log("}");
     }
-    	console.log("}");
+    	//console.log("}");
 }
 
 function itrf(scene,time){ // developpement 2016 // vue ITRF
@@ -68,20 +68,20 @@ function itrf(scene,time){ // developpement 2016 // vue ITRF
         return;
     }
     var itrfToFixed = Cesium.Transforms.computeFixedToIcrfMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur des axes de chassis fixes terrestres (ITRF) au Cadre international de reference celeste (ICRF / ICRF) cadre inertiel axes a un moment donne. Cette fonction peut retourner undefined si les donnees necessaires pour faire la transformation ne sont pas encore charges.
-    	console.log("var itrfToFixed = Cesium.Transforms.computeFixedToIcrfMatrix(time);");
+    	//console.log("var itrfToFixed = Cesium.Transforms.computeFixedToIcrfMatrix(time);");
     if(Cesium.defined(itrfToFixed)){
-    		console.log("if(Cesium.defined(itrfToFixed)){");
+    		//console.log("if(Cesium.defined(itrfToFixed)){");
         var camera = viewer.camera;
-        	console.log("var camera = viewer.camera;");
+        	//console.log("var camera = viewer.camera;");
         var offset = Cesium.Cartesian3.clone(camera.position);
-        	console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
+        	//console.log("var offset = Cesium.Cartesian3.clone(camera.position);");
         var transform = Cesium.Matrix4.fromRotationTranslation(itrfToFixed);
-        	console.log("var transform = Cesium.Matrix4.fromRotationTranslation(itrfToFixed);");
+        	//console.log("var transform = Cesium.Matrix4.fromRotationTranslation(itrfToFixed);");
         camera.lookAtTransform(transform, offset);
-        	console.log("camera.lookAtTransform(transform, offset);");
-        	console.log("}");
+        	//console.log("camera.lookAtTransform(transform, offset);");
+        	//console.log("}");
     }
-    	console.log("}");
+    	//console.log("}");
 }
 
 //////////////////////////////////// VIEW EVENTS ////////////////////////////////////
@@ -90,63 +90,63 @@ function itrf(scene,time){ // developpement 2016 // vue ITRF
 function view(){ // developpement 2016 // vue initiale
 		console.log("function view(){");
     Sandcastle.declare(view);
-    	console.log("Sandcastle.declare(view);");
+    	//console.log("Sandcastle.declare(view);");
     var vm = viewer.homeButton.viewModel;
-    	console.log("var vm = viewer.homeButton.viewModel;");
+    	//console.log("var vm = viewer.homeButton.viewModel;");
     vm.duration = 0.0;
-		console.log("vm.duration = 0.0;");
+		//console.log("vm.duration = 0.0;");
     vm.command();
-    	console.log("vm.command();");
+    	//console.log("vm.command();");
     vm.duration = 3.0;
-    	console.log("vm.duration = 3.0;");
+    	//console.log("vm.duration = 3.0;");
     clock.multiplier = 3*60*60;
-    	console.log("clock.multiplier = 3*60*60;");
+    	//console.log("clock.multiplier = 3*60*60;");
     //scene.preRender.addEventListener(base);
     scene.globe.enableLighting = false; // lumiere du soleil
-    	console.log("scene.globe.enableLighting = false;");
-    	console.log("}");
+    	//console.log("scene.globe.enableLighting = false;");
+    	//console.log("}");
 }
 
 function viewInICRF(){ // il s agit d une fonction recuperant les resultats de la function icrf(scene, time) et les effectant a la vue
 		console.log("function viewInICRF(){");
     Sandcastle.declare(viewInICRF);
-    	console.log("Sandcastle.declare(viewInICRF);");
-		var vm = viewer.homeButton.viewModel;
-    	console.log("var vm = viewer.homeButton.viewModel;");
+    	//console.log("Sandcastle.declare(viewInICRF);");
+	var vm = viewer.homeButton.viewModel;
+    	//console.log("var vm = viewer.homeButton.viewModel;");
     vm.duration = 0.0;
-    	console.log("vm.duration = 0.0;");
+    	//console.log("vm.duration = 0.0;");
     vm.command();
-    	console.log("vm.command();");
+    	//console.log("vm.command();");
     vm.duration = 3.0;
-    	console.log("vm.duration = 3.0;");
+    	//console.log("vm.duration = 3.0;");
     clock.multiplier = 3*60*60;
-    	console.log("clock.multiplier = 3*60*60;");
+    	//console.log("clock.multiplier = 3*60*60;");
     scene.preRender.addEventListener(icrf); // function icrf(scene,time)
-    	console.log("scene.preRender.addEventListener(icrf);");
+    	//console.log("scene.preRender.addEventListener(icrf);");
     scene.globe.enableLighting = true; // lumiere du soleil
-    	console.log("scene.globe.enableLighting = true;");
-    	console.log("}");
+    	//console.log("scene.globe.enableLighting = true;");
+    	//console.log("}");
 }
 
 function viewInITRF(){ // developpement 2016 // vue ITRF
-	console.log("function viewInITRF(){");
+		console.log("function viewInITRF(){");
     Sandcastle.declare(viewInITRF);
-    console.log("Sandcastle.declare(viewInITRF);");
+    	//console.log("Sandcastle.declare(viewInITRF);");
     var vm = viewer.homeButton.viewModel;
-    console.log("var vm = viewer.homeButton.viewModel;");
+    	//console.log("var vm = viewer.homeButton.viewModel;");
     vm.duration = 0.0;
-    console.log("vm.duration = 0.0;");
+    	//console.log("vm.duration = 0.0;");
     vm.command();
-    console.log("vm.command();");
+    	//console.log("vm.command();");
     vm.duration = 3.0;
-    console.log("vm.duration = 3.0;");
+    	//console.log("vm.duration = 3.0;");
     clock.multiplier = 3*60*60;
-    console.log("clock.multiplier = 3*60*60;");
+    	//console.log("clock.multiplier = 3*60*60;");
     scene.preRender.addEventListener(itrf); // function itrf(scene,time)
-    console.log("scene.preRender.addEventListener(itrf);");
+    	//console.log("scene.preRender.addEventListener(itrf);");
     scene.globe.enableLighting = true; // lumiere du soleil
-    console.log("scene.globe.enableLighting = true;");
-    console.log("}");
+    	//console.log("scene.globe.enableLighting = true;");
+    	//console.log("}");
 }
 
 ////////////////////////////////////// VIEWS //////////////////////////////////////
@@ -236,45 +236,45 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 		        // affichage des satellites GPS SampleData\CZML_ICRF\GPS_CZML_ICRF
 		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN01_orbit_GNSS_GPS.out_FRED.czml'));
 		        	console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN01_orbit_GNSS_GPS.out_FRED.czml'));");
-			    viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN02_orbit_GNSS_GPS.out_FRED.czml'));
-			    	console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN02_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN03_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN03_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN04_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN04_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN05_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN05_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN07_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN07_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN08_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN08_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN09_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN09_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN10_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN10_orbit_GNSS_GPS.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN11_orbit_GNSS_GPS.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN11_orbit_GNSS_GPS.out_FRED.czml'));");
+			    //viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN02_orbit_GNSS_GPS.out_FRED.czml'));
+			    	//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN02_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN03_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN03_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN04_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN04_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN05_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN05_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN07_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN07_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN08_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN08_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN09_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN09_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN10_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN10_orbit_GNSS_GPS.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN11_orbit_GNSS_GPS.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GPS_CZML_ICRF/PRN11_orbit_GNSS_GPS.out_FRED.czml'));");
 				// affichage des satellites Galileo SampleData\CZML_ICRF\GALILEO_CZML_ICRF
 				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN01_orbit_GNSS_GAL.out_FRED.czml'));
 					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN01_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN02_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN02_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN03_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN03_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN04_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN04_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN05_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN05_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN06_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN06_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN07_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN07_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN08_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN08_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN09_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN09_orbit_GNSS_GAL.out_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN10_orbit_GNSS_GAL.out_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN10_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN02_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN02_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN03_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN03_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN04_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN04_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN05_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN05_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN06_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN06_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN07_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN07_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN08_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN08_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN09_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN09_orbit_GNSS_GAL.out_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN10_orbit_GNSS_GAL.out_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GALILEO_CZML_ICRF/PRN10_orbit_GNSS_GAL.out_FRED.czml'));");
 				// affichage des satellites Grasp SampleData\CZML_ICRF\GRASP_CZML_ICRF orbit_GRASP_JPL.txt_FRED.czml
 				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GRASP_CZML_ICRF/orbit_GRASP_JPL.txt_FRED.czml'));
 					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ICRF/GRASP_CZML_ICRF/orbit_GRASP_JPL.txt_FRED.czml'));");
@@ -297,45 +297,45 @@ Sandcastle.addToolbarMenu( // Menu choix ITRF/ICRF
 				// affichage des satellites GPS SampleData\CZML_ITRF\GPS_CZML_ITRF
 		        viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN01_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
 		        	console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN01_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-			    viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN02_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-			    	console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN02_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN03_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN03_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN04_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN04_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN05_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN05_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN06_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN06_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN07_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN07_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN08_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN08_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN09_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN09_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN10_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN10_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+			    //viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN02_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+			    	//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN02_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN03_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN03_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN04_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN04_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN05_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN05_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN06_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN06_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN07_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN07_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN08_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN08_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN09_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN09_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN10_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GPS_CZML_ITRF/PRN10_orbit_GNSS_GPS_ITRF.txt_FRED.czml'));");
 				// affichage des satellites Galileo SampleData\CZML_ITRF\GALILEO_CZML_ITRF
 				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN01_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
 					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN01_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN02_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN02_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN03_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN03_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN04_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN04_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN05_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN05_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN06_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN06_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN07_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN07_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN08_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN08_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN09_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN09_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
-				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN10_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
-					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN10_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN02_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN02_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN03_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN03_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN04_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN04_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN05_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN05_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN06_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN06_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN07_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN07_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN08_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN08_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN09_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN09_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
+				//viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN10_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));
+					//console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GALILEO_CZML_ITRF/PRN10_orbit_GNSS_GAL_ITRF.txt_FRED.czml'));");
 				// affichage des satellites Grasp SampleData\CZML_ITRF\GRASP_CZML_ITRF
 				viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GRASP_CZML_ITRF/orbite_itrf2016_GRASP.txt_FRED.czml'));
 					console.log("viewer.dataSources.add(Cesium.CzmlDataSource.load('SampleData/CZML_ITRF/GRASP_CZML_ITRF/orbite_itrf2016_GRASP.txt_FRED.czml'));");
