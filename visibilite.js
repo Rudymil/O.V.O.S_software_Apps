@@ -70,6 +70,7 @@ var Fichier = function Fichier(fichier){
 function PositionSatellite(){
 		console.log("function PositionSatellite(){");
 	var fichier ='../data/Networks_Stations/Satellite.txt'; // FICHIER INEXISTANT
+		console.log("fichier = "+fichier);
 	
 	// On recupere le contenu du fichier.
 	var Contenu = Fichier(fichier);	
