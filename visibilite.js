@@ -1,21 +1,50 @@
-console.log("visibilite.js chargé"); // affichage dans la console
+// Controle de chargement du fichier
+console.log("visibilite.js chargé"); 
 
 //var viewer = new Cesium.Viewer('cesiumContainer');
 
-function include(fileName){ // fonction permettant d inclure un fichier javascript dans un autre fichier javascript
+// Fonction permettant d'inclure un fichier javascript dans un autre fichier javascript
+function include(fileName)
+{ 
+	// On insere une balise script avec le nom du fichier a inclure.
 	document.write("<script type='text/javascript' src='"+fileName+"'></script>");
 }
 
+// On insere le fichier affichage.js
 include('affichage.js');
-	//console.log("include('affichage.js');");
 
-var Fichier = function Fichier(fichier){ // il s agit d une fonction lisant un fichier texte et retournant son contenu dans une chaine de caracteres
-    if(window.XMLHttpRequest) obj = new XMLHttpRequest(); //Pour Firefox, Opera,...
-    else if(window.ActiveXObject) obj = new ActiveXObject("Microsoft.XMLHTTP"); //Pour Internet Explorer 
+// Fonction lisant un fichier texte et retournant son contenu dans une chaine de caracteres
+var Fichier = function Fichier(fichier)
+{ 
+	// On gere Firefox et autres
+    if(window.XMLHttpRequest) obj = new XMLHttpRequest(); 
+	// On gere Internet Explorer
+    else if(window.ActiveXObject) obj = new ActiveXObject("Microsoft.XMLHTTP"); 
+	// Si la requete n'est pas supportee par le navigateur :
     else return(false);
-    if(obj.overrideMimeType) obj.overrideMimeType("text/xml"); //Évite un bug de Safari
+	// On gere Safari
+    if(obj.overrideMimeType) obj.overrideMimeType("text/xml"); 
+	
+	// On ouvre la connexion avec le serveur.
+	// -methode : Get ou POST
+	// -url : la ou on veut envoyer la requete. Si la methode est GET, on met les 
+	//  	  parametres dans l'url.
+	// -flag : true pour un dialogue asynchrone, false sinon.
     obj.open("GET", fichier, false);
+	
+	// On envoie la requete au serveur.
+	// -Si la methode est GET, on met null en parametre.
+	// -Si la methode est POST, on met les parametres a renvoyer sous la forme :
+	//	"nomparam1=valeurparam1&nomparam2=valeurparam2"
     obj.send(null);
+	
+	// readyState represente l'etat de l'objet :
+	// -0:non initialise;
+	// -1:ouverture (open() vient de s'exécuter);
+	// -2:envoyé (send() vient de s'exécuter);
+	// -3:en cours (des données sont en train d'arriver);
+	// -4:prêt (toutes les données sont chargées).
+	// Donc si tout est bien charge, on renvoie la reponse.
     if(obj.readyState == 4) return(obj.responseText);
     else return(false);
 }
@@ -35,83 +64,183 @@ var Fichier = function Fichier(fichier){ // il s agit d une fonction lisant un f
 	}
 }*/
 
-function PositionSatellite(){ // fonction renvoyant la position approximative du satellite à chaque temps t de l horloge du viewer // cette fonction recupere les resultats de la function Fichier(fichier) et les affecte au viewer
-	console.log("function PositionSatellite(){");
+
+// Fonction renvoyant la position approximative du satellite a chaque temps t de l'horloge du viewer.
+// Cette fonction recupere les resultats de la fonction Fichier(fichier) et les affecte au viewer.
+function PositionSatellite()
+{  
 	var fichier ='../data/Networks_Stations/Satellite.txt'; // FICHIER INEXISTANT
+	
+	// On recupere le contenu du fichier.
 	var Contenu = Fichier(fichier);	
+	// On controle le resultat dans la console.
 	console.log(Contenu);
-	var i;
-	var a = new Array();
+	
+	
+	var iLine;
+	// On initialise 2 nouveaux tableaux.
+	var tableau = new Array();
 	var ligne =  new Array;
+	// On recupere la taille du fichier.
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-	for( var i=0 ; i<nombre_de_lignes_au_total ; i++ ){
-		ligne[i]=Contenu.split(/\n/g)[i]
+	// On parcourt les lignes du fichier.
+	for( var iLine=0 ; iLine<nombre_de_lignes_au_total ; iLine++ )
+	{
+		// Dans le tableau de lignes, on insere chaque ligne du fichier.
+		ligne[iLine]=Contenu.split(/\n/g)[iLine]
+		
+		// On cree un objet representant une expression rationnelle permettant de reconnaitre
+		// un motif au sein d'une chaine de caracteres.
+		// - motif : decrit le format de chaine a trouver;
+		// -type : decrit le type d'expression reguliere :
+		//		+ i:expression analysee indifferemment sur majuscules ou minuscules;
+		//		+ g:expression analysee globalement sur l'ensemble de la chaine;
+		//		+ gi:les 2.
 		var reg=new RegExp("[,]+", "g");
-		a[i] = ligne[i].split(reg);
+		
+		// Dans tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
+		tableau[iLine] = ligne[iLine].split(reg);
 	}
+	
 	//var answers = JSON.parse('Networks_Stations/Satellite.txt');
 	//var widget = new Cesium.CesiumWidget('cesiumContainer');
+	
+	// On recupere le nombre de secondes au sein du jour julien courant.
+	// Les secondes fractionees, negatives et les secondes superieurs a une journee sont gerees.
 	var seconds = viewer.clock.currentTime.secondsOfDay;
+	
+	// On recupere le jour courant en julien.
+	// Les jours fractiones sont geres.
 	var julianDay = viewer.clock.currentTime.dayNumber;
+	
+	
 	//var Julian=Cesium.JulianDate(2441317, 43210.0, TimeStandard.TAI)
 	//var julianDate = new Cesium.JulianDate();
+	
+	// On recupere une date julien astronomique (nb de jours depuis le 1er janvier -4712 apres-midi)
+	// -julianDayNumber : Nombre de jours entiers;
+	// -secondsOfDay : Nombre de secondes au sein du jour julien courant;
+	// -timeStandard : Temps standard dans lequel les 2 premiers parametres sont definis.
 	var dateViewer = new Cesium.JulianDate(julianDay, seconds, Cesium.TimeStandard.UTC);
+	
+	// On cree un tableau dans lequel on stockera les dates de debut de visibilite.
 	var julianDateBeginning = new Array();
+	
+	// 1ere date.
+	// Creation d'une nouvelle instance d'une date ISO8601.
+	// Prend en parametre une date en chaine de caracteres.
+	// Renvoie une date julien.
 	julianDateBeginning [0] = Cesium.JulianDate.fromIso8601('2012-03-15T10:00:00Z');
+	
+	// On cree une liste.
 	var difference = [];
-	var maxTemps=a[nombre_de_lignes_au_total-1][0];
+	
+	// On definit la fin de l'intervalle de temps (1er argument de la derniere ligne du fichier).
+	var maxTemps=tableau[nombre_de_lignes_au_total-1][0];
+	
+	// On definit un pas.
 	var pas=maxTemps/(nombre_de_lignes_au_total-3);
-	for( var i=1 ; i<nombre_de_lignes_au_total+1 ; i++ ){
-		julianDateBeginning[i] = Cesium.JulianDate.addSeconds(julianDateBeginning[i-1], pas, new Cesium.JulianDate());
-		difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[i],dateViewer)));
+	
+	// On parcourt les lignes du fichier.
+	for( var iLine=1 ; iLine<nombre_de_lignes_au_total+1 ; iLine++ )
+	{
+		// A la date fournie, on ajoute un certain nombre de secondes (intervalle de secondes : pas)
+		// -julianDate : date julien fournie;
+		// -seconds : nombre de secondes a ajouter (>0) ou a soustraire (si <0);
+		// -result : une instance existante a utiliser pour le resultat.
+		julianDateBeginning[iLine] = Cesium.JulianDate.addSeconds(julianDateBeginning[iLine-1], pas, new Cesium.JulianDate());
+		
+		// On ajoute a la liste la difference en jours entre 2 dates.
+		difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
 	}
+	
+	// On recupere la valeur minimale de la liste et on la stocke dans la variable min.
 	var min = Math.min.apply(null, difference);
+	
+	// On recupere l'indice de la valeur minimale de la liste.
 	var position = difference.indexOf(min);
+	// On controle dans la console.
 	console.log(position);
+	
+	// On recupere le contenu d'un fichier station.
 	var ContenuStations = Fichier('../data/Networks_Stations/Network_NEN_ell');
-	var i;
-	var ligne =  new Array;
+	
+	
+	var iLine2;
+	// On initialise 1 nouveau tableau.
+	var ligne2 =  new Array;
+	// On recupere la taille du fichier.
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-	for( var i=0 ; i<nombre_de_lignes_au_total ; i++){
-		ligne[i]=Contenu.split(/\n/g)[i]
+	// On parcourt les lignes du fichier.
+	for( var iLine2=0 ; iLine2<nombre_de_lignes_au_total ; iLine2++)
+	{
+		// Dans le tableau de lignes, on insere chaque ligne du fichier.
+		ligne2[iLine2]=Contenu.split(/\n/g)[iLine2];
+		
+		// On cree un objet representant une expression rationnelle permettant de reconnaitre
+		// un motif au sein d'une chaine de caracteres.
+		// - motif : decrit le format de chaine a trouver;
+		// -type : decrit le type d'expression reguliere :
+		//		+ i:expression analysee indifferemment sur majuscules ou minuscules;
+		//		+ g:expression analysee globalement sur l'ensemble de la chaine;
+		//		+ gi:les 2.
 		var reg=new RegExp("[        ]+", "g");
-		var b = ligne[i].split(reg);
-		elevation(b[2], b[1], b[3], a[position][1], a[position][2], a[position][3], 5);
-		//point(a[2],a[1],a[0],fichier);
+		
+		// Dans un autre tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
+		var autreTableau = ligne2[iLine2].split(reg);
+		
+		
+		// On appelle la fontion elevation.
+		//point(tableau[2],tableau[1],tableau[0],fichier);
+		elevation(autreTableau[2], autreTableau[1], autreTableau[3], tableau[position][1], tableau[position][2], tableau[position][3], 5);
 	}
+	
+	// On controle dans la console.
 	console.log(dateViewer);
-	console.log("x: "+a[position][1],"y: "+a[position][2],"z: "+a[position][3]);
+	console.log("x: "+tableau[position][1],"y: "+tableau[position][2],"z: "+tableau[position][3]);
 	var difference2 = Cesium.JulianDate.daysDifference(dateViewer,julianDateBeginning[1]);
 }
 
-window.setInterval(function(){
-	//console.log("window.setInterval(function(){");
+// On appelle une fonction de maniere repetee, a intervalle de temps regulier.
+// Ici toutes les 1000 ms, soit toutes les secondes.
+window.setInterval(function()
+{
 	//PositionSatellite();
 }, 1000);
 
+// Soit une nouvelle requete.
 var req = new XMLHttpRequest();
+// On definit les modalites d'envoi de la requete par la methode open :
+// -methode de transfert : GET ou POST;
+// -url : chemin d'envoi de la requete;
+// -flag : true pour un dialogue asynchrone, false sinon.
 req.open("GET", "SampleData/GPS.czml", true); 
-req.onreadystatechange = myCode; // the handler 
+// On affecte une fonction qui sera executee a chaque "changement d'etat" de l'objet.
+req.onreadystatechange = myCode; 
+// On envoie la requete.
 req.send(null);
 
-function myCode(){
-	console.log("function myCode(){");
-	if (req.readyState == 4){ 
+function myCode()
+{ 
+	// Si toutes les donnees sont chargees :
+	if (req.readyState == 4)
+	{ 
+		// No Comprendo
 		var doc = window[req.responseText];
 			//alert (doc);
-			console.log(doc);
 			//alert ( req.responseTex);
-			console.log(req.responseTex);
-	}else{
-		//alert("mauvaise req");
-		console.log("mauvaise req");
+	}
+	else
+	{
+		console.log("erreur de requete");
 	}
 }
 
 myCode();
 
-function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){ // fonction calculant l angle d elevation entre une station au sol et un satelitte dans le repere local de la station
-	console.log("function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){");
+
+// Fonction calculant l'angle d'elevation entre une station au sol et un satellite dans le repere local de la station
+function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){ 
 //function elevation(EstStation, NordStation, hStation, EstGRASP, NordGRASP, hGRASP, angleLim){
 
 	deltaEst = X_GRASP - LonStation;
@@ -127,30 +256,34 @@ function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleL
 
 	angle = Math.atan(deltah/r);
 
-	angle = angle*(180/Math.PI);
+	angleDegre = angle*(180/Math.PI);
 
-	console.log(angle);
+	console.log(angleDegre);
 
-	if(angle>angleLim){
-		console.log(angle);
+	if(angleDegre>angleLim)
+	{
+		console.log(angleDegre);
 	}
-	else{
+	else
+	{
 		console.log("satellite pas visible");
-		AffichageFaux(latStation,LonStation);
+		//AffichageFaux(latStation,LonStation);
 		//viewer.entities.removeAll();
 	}
 }
 
-function ConversionStations(lat,lon,h){
-	console.log("function ConversionStations(lat,lon,h){");
+
+function ConversionStations(lat,lon,h)
+{
+	
 }
 
-function ConversionGRASP(X,Y,Z){
-	console.log("function ConversionGRASP(X,Y,Z){");
+function ConversionGRASP(X,Y,Z)
+{
+	
 }
 
 function ITRFtoPLAN(lat,lon){
-	console.log("function ITRFtoPLAN(lat,lon){");
 	var matrice= new Matrix3(-sin(lon),cos(lon),0,-sin(lat)*cos(lon),-sin(lat)*sin(lon),cos(lat),cos(lat)*cos(lon),cos(lat)*sin(lon),sin(lat));
 	console.log(matrice);
 }
