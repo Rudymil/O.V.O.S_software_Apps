@@ -239,40 +239,54 @@ function myCode()
 myCode();
 
 
-// Fonction calculant l'angle d'elevation entre une station au sol et un satellite dans le repere local de la station
-function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){ 
-//function elevation(EstStation, NordStation, hStation, EstGRASP, NordGRASP, hGRASP, angleLim){
+// Fonction qui determine si un satellite est dans le cone de visibilite d'une station ou pas.
+function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim)
+{ 
+	// Definition de l'angle du cone de visibilite du satellite.
+	var angleLim=60;
+	
+	// Constantes pour l'ellipsoide GRS80
+	var a = 6378137;
+	var e=Math.sqrt(0.0066943800222);
+	var W = sqrt (1-(e^2)*(sin(latStation)^2));
+	var N = a/W;
+	
 
-	deltaEst = X_GRASP - LonStation;
-	deltaNord = Y_GRASP - latStation;
-	deltah = Z_GRASP - hStation;
+	// 1) Passage d'un repere geocentrique a un repere local, de centre le station. 
 
+	// On calcule la matrice de changement de repere pour une station.
+	var matriceChangementRepere= math.matrix([-sin(LonStation),cos(LonStation),0],[-sin(latStation)*cos(LonStation),-sin(latStation)*sin(LonStation),cos(latStation)],[cos(latStation)*cos(LonStation),cos(latStation)*sin(LonStation),sin(latStation)]);
+	
+	// 
+	var matriceSat= math.matrix([X_GRASP-N*cos(LonStation)*cos(latStation)],
+								[Y_GRASP-N*sin(LonStation)*cos(latStation)],
+								[Z_GRASP-N*(1-Math.pow(e,2))*sin(latStation)]);
 
-	/*deltaEst = EstGRASP - EstStation;
-	deltaNord = NordGRASP - NordStation;
-	deltah = hGRASP - hStation;*/
-
-	var r = Math.sqrt(Math.pow(deltaEst,2)+Math.pow(deltaNord,2));
-
-	angle = Math.atan(deltah/r);
-
-	angleDegre = angle*(180/Math.PI);
-
-	console.log(angleDegre);
-
-	if(angleDegre>angleLim)
+	// On calcule les nouvelles coordonnees du satellite dans le repere local.
+	var SatLocal=math.multiply(matriceChangementRepere,matriceSat);
+	console.log("Les coordonnees du satellite dans le repere local sont :"+SatLocal);
+	
+	// 2) On calcule la distance separant le satellite de la station.
+	var Xlocal=math.subset(SatLocal, math.index(1));
+	var Ylocal=math.subset(SatLocal, math.index(2));
+	var Zlocal=math.subset(SatLocal, math.index(3));
+	var Distance= Math.sqrt(Math.pow(Xlocal,2) + Math.pow(Ylocal,2));
+	
+	// 3) On calcule l'angle (en degres) entre le satellite et la verticale a la station.
+	var angleRadian=Math.acos(Zlocal/Distance)*(180/Math.PI);
+	
+	// 4) Si cet angle est inferieur a l'angle delimitant le cone de visibilite, alors le satellite est visible.
+	if(angleDegre<angleLim)
 	{
 		console.log(angleDegre);
 	}
 	else
 	{
-		console.log("satellite pas visible");
-		//AffichageFaux(latStation,LonStation);
-		//viewer.entities.removeAll();
+		console.log("satellite non visible");
 	}
 }
 
-
+/*
 function ConversionStations(lat,lon,h)
 {
 	
@@ -287,6 +301,7 @@ function ITRFtoPLAN(lat,lon){
 	var matrice= new Matrix3(-sin(lon),cos(lon),0,-sin(lat)*cos(lon),-sin(lat)*sin(lon),cos(lat),cos(lat)*cos(lon),cos(lat)*sin(lon),sin(lat));
 	console.log(matrice);
 }
+*/
 
 //elevation(1000,1000,1000,1000,1000,1000,50);
 
