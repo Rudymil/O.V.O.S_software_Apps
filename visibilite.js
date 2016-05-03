@@ -77,8 +77,8 @@ function PositionSatellite(){
 	// On controle le resultat dans la console.
 		//console.log("Contenu = "+Contenu);
 	
-	var iLine;
-	var iCol;
+	var iLine=0;
+	var iCol=0;
 		//console.log("iLine = "+iLine);
 	// On initialise 2 nouveaux tableaux.
 	var tableau = new Array();
@@ -89,29 +89,31 @@ function PositionSatellite(){
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
 		//console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
 	// On parcourt les lignes du fichier.
-	for( var iLine=0 ; iLine<nombre_de_lignes_au_total ; iLine+4)
+	while(iLine<nombre_de_lignes_au_total)
 	{
 		tableau[iLine]=new Array();
 		
-		for(var iCol=0; iCol<4; iCol++){
-		// Dans le tableau de lignes, on insere chaque ligne du fichier.
-		ligne[iLine+iCol]=Contenu.split(/\n/g)[iLine+iCol];
-			//console.log("ligne[iLine] = "+ligne[iLine]);
-		
-		// On cree un objet representant une expression rationnelle permettant de reconnaitre
-		// un motif au sein d'une chaine de caracteres.
-		// - motif : decrit le format de chaine a trouver;
-		// -type : decrit le type d'expression reguliere :
-		//		+ i:expression analysee indifferemment sur majuscules ou minuscules;
-		//		+ g:expression analysee globalement sur l'ensemble de la chaine;
-		//		+ gi:les 2.
-		var reg=new RegExp("[,]+", "g");
-		//chaine.replace(reg,"<SPAN style='background-color=yellow'>$1</SPAN></FONT>")
-		
-		// Dans tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
-		tableau[iLine][iCol] = ligne[iLine+iCol].replace(reg, "");
-			console.log("tableau[iLine] = "+tableau[iLine][0]+" "+tableau[iLine][1]+" "+tableau[iLine][2]+" "+tableau[iLine][3]);
+		for(var iCol=0; iCol<4; iCol++)
+		{
+			// Dans le tableau de lignes, on insere chaque ligne du fichier.
+			ligne[iLine+iCol]=Contenu.split(/\n/g)[iLine+iCol];
+				//console.log("ligne[iLine] = "+ligne[iLine]);
+			
+			// On cree un objet representant une expression rationnelle permettant de reconnaitre
+			// un motif au sein d'une chaine de caracteres.
+			// - motif : decrit le format de chaine a trouver;
+			// -type : decrit le type d'expression reguliere :
+			//		+ i:expression analysee indifferemment sur majuscules ou minuscules;
+			//		+ g:expression analysee globalement sur l'ensemble de la chaine;
+			//		+ gi:les 2.
+			var reg=new RegExp("[,]+", "g");
+			//chaine.replace(reg,"<SPAN style='background-color=yellow'>$1</SPAN></FONT>")
+			
+			// Dans tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
+			tableau[iLine][iCol] = ligne[iLine+iCol].replace(reg, "");
 		}
+		console.log("tableau["+iLine+"] = "+tableau[iLine][0]+" "+tableau[iLine][1]+" "+tableau[iLine][2]+" "+tableau[iLine][3]);
+		iLine+=4;
 	}
 	
 	//var answers = JSON.parse('Networks_Stations/Satellite.txt');
