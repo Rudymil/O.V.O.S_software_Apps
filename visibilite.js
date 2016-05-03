@@ -14,8 +14,8 @@ function include(fileName)
 include('affichage.js');
 
 // Fonction lisant un fichier texte et retournant son contenu dans une chaine de caracteres
-var Fichier = function Fichier(fichier){ 
-		console.log("var Fichier = function Fichier(fichier){}");
+var Fichier = /*function*/ Fichier(fichier)/*{ 
+		console.log("var Fichier = function Fichier(fichier){});
 	// On gere Firefox et autres
     if(window.XMLHttpRequest) obj = new XMLHttpRequest(); 
 	// On gere Internet Explorer
@@ -47,7 +47,7 @@ var Fichier = function Fichier(fichier){
 	// Donc si tout est bien charge, on renvoie la reponse.
     if(obj.readyState == 4) return(obj.responseText);
     else return(false);
-}
+}*/
 
 /*function Affichage(fichier){
 	var Contenu = Fichier(fichier);
