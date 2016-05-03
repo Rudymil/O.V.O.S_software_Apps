@@ -69,30 +69,34 @@ var Fichier = function Fichier(fichier){
 // Cette fonction recupere les resultats de la fonction Fichier(fichier) et les affecte au viewer.
 function PositionSatellite(){
 		console.log("function PositionSatellite(){");
-	var fichier ='../data/Networks_Stations/Satellite.txt'; // FICHIER INEXISTANT
+	var fichier ='SampleData/CZML_ICRF/GRASP_CZML_ICRF/GRASP_ICRF.txt'; 
 		console.log("fichier = "+fichier);
 	
 	// On recupere le contenu du fichier.
 	var Contenu = Fichier(fichier);	
 	// On controle le resultat dans la console.
-		console.log("Contenu = "+Contenu);
+		//console.log("Contenu = "+Contenu);
 	
 	var iLine;
-		console.log("iLine = "+iLine);
+	var iCol;
+		//console.log("iLine = "+iLine);
 	// On initialise 2 nouveaux tableaux.
 	var tableau = new Array();
-		console.log("tableau = "+tableau);
+		//console.log("tableau = "+tableau);
 	var ligne =  new Array;
-		console.log("ligne = "+ligne);
+		//console.log("ligne = "+ligne);
 	// On recupere la taille du fichier.
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-		console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
+		//console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
 	// On parcourt les lignes du fichier.
-	for( var iLine=0 ; iLine<nombre_de_lignes_au_total ; iLine++ )
+	for( var iLine=0 ; iLine<nombre_de_lignes_au_total ; iLine+4)
 	{
+		tableau[iLine]=new Array();
+		
+		for(var iCol=0; iCol<4; iCol++){
 		// Dans le tableau de lignes, on insere chaque ligne du fichier.
-		ligne[iLine]=Contenu.split(/\n/g)[iLine];
-			console.log("ligne[iLine] = "+ligne[iLine]);
+		ligne[iLine+iCol]=Contenu.split(/\n/g)[iLine+iCol];
+			//console.log("ligne[iLine] = "+ligne[iLine]);
 		
 		// On cree un objet representant une expression rationnelle permettant de reconnaitre
 		// un motif au sein d'une chaine de caracteres.
@@ -102,10 +106,12 @@ function PositionSatellite(){
 		//		+ g:expression analysee globalement sur l'ensemble de la chaine;
 		//		+ gi:les 2.
 		var reg=new RegExp("[,]+", "g");
+		//chaine.replace(reg,"<SPAN style='background-color=yellow'>$1</SPAN></FONT>")
 		
 		// Dans tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
-		tableau[iLine] = ligne[iLine].split(reg);
-			console.log("tableau[iLine] = "+tableau[iLine]);
+		tableau[iLine][iCol] = ligne[iLine+iCol].replace(reg, "");
+			console.log("tableau[iLine] = "+tableau[iLine][0]+" "+tableau[iLine][1]+" "+tableau[iLine][2]+" "+tableau[iLine][3]);
+		}
 	}
 	
 	//var answers = JSON.parse('Networks_Stations/Satellite.txt');
@@ -216,6 +222,7 @@ function PositionSatellite(){
 		// On appelle la fontion elevation.
 		//point(tableau[2],tableau[1],tableau[0],fichier);
 		elevation(autreTableau[2], autreTableau[1], autreTableau[3], tableau[position][1], tableau[position][2], tableau[position][3], 5);
+		console.log("elevation");
 	}
 	
 	// On controle dans la console.
@@ -223,7 +230,7 @@ function PositionSatellite(){
 		console.log("x: "+tableau[position][1],"y: "+tableau[position][2],"z: "+tableau[position][3]);
 	var difference2 = Cesium.JulianDate.daysDifference(dateViewer,julianDateBeginning[1]);
 	console.log("difference2 = "+difference2);
-	console.log("}");
+	console.log("} // PositionSatellite");
 }
 
 // On appelle une fonction de maniere repetee, a intervalle de temps regulier.
@@ -245,22 +252,22 @@ req.onreadystatechange = myCode;
 // On envoie la requete.
 req.send(null);
 
-function myCode(){
-		console.log("function myCode(){");
+function myCode()
+{
+	console.log("function myCode(){");
 	// Si toutes les donnees sont chargees :
 	if (req.readyState == 4)
 	{ 
 		// No Comprendo
 		var doc = window[req.responseText];
-			//alert (doc);
-			//alert (req.responseTex);
-			console.log(doc);
-			console.log(req.responseTex);
+		console.log(doc);
+		console.log(req.responseTex);
 	}
 	else
 	{
 		console.log("erreur de requete");
 	}
+	console.log("} // myCode");
 }
 
 myCode();
