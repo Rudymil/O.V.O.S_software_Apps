@@ -29,6 +29,7 @@ function PositionSatellite()
 		console.log("function PositionSatellite(){");
 	
 	var iLine=0;
+	var iLineTableau=0;
 		//console.log("iLine = "+iLine);
 	var iCol=0;
 		//console.log("iCol = "+iCol);
@@ -43,7 +44,7 @@ function PositionSatellite()
 	// On parcourt les lignes du fichier.
 	while(iLine<nombre_de_lignes_au_total)
 	{
-		tableau[iLine]=new Array();
+		tableau[iLineTableau]=new Array();
 		
 		for(var iCol=0; iCol<4; iCol++)
 		{
@@ -62,9 +63,10 @@ function PositionSatellite()
 			//chaine.replace(reg,"<SPAN style='background-color=yellow'>$1</SPAN></FONT>")
 			
 			// Dans tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
-			tableau[iLine][iCol] = ligne[iLine+iCol].replace(reg, "");
+			tableau[iLineTableau][iCol] = ligne[iLine+iCol].replace(reg, "");
 		}
-			//console.log("tableau["+iLine+"] = "+tableau[iLine][0]+" "+tableau[iLine][1]+" "+tableau[iLine][2]+" "+tableau[iLine][3]);
+			console.log("tableau["+iLineTableau+"] = "+tableau[iLineTableau][0]+" "+tableau[iLineTableau][1]+" "+tableau[iLineTableau][2]+" "+tableau[iLineTableau][3]);
+		iLineTableau+=1;	
 		iLine+=4;
 	}
 	console.log("} // PositionSatellite");
@@ -105,7 +107,8 @@ function VisibiliteTempsReel(tableau)
 		console.log("julianDateBeginning = "+julianDateBeginning);
 	
 	// On cree une liste.
-	var difference = new Array;
+	//var difference = new Array;
+	var difference=[];
 		console.log("difference = "+difference);
 	
 	// On definit la fin de l'intervalle de temps (1er argument de la derniere ligne du fichier).
@@ -119,23 +122,28 @@ function VisibiliteTempsReel(tableau)
 		console.log("pas = "+pas);
 	
 	// On parcourt les lignes du fichier.
-	for( var iLine=1 ; iLine<nombre_de_lignes_au_total+1 ; iLine++ )
+	for( var iLine=1 ; iLine<nombre_de_lignes_au_total ; iLine++ )
 	{
 		// A la date fournie, on ajoute un certain nombre de secondes (intervalle de secondes : pas)
 		// -julianDate : date julien fournie;
 		// -seconds : nombre de secondes a ajouter (>0) ou a soustraire (si <0);
 		// -result : une instance existante a utiliser pour le resultat.
 		julianDateBeginning[iLine] = Cesium.JulianDate.addSeconds(julianDateBeginning[iLine-1], pas, new Cesium.JulianDate());
-			console.log("julianDateBeginning["+iLine+"] = "+julianDateBeginning[iLine]);
+			//console.log("julianDateBeginning["+iLine+"] = "+julianDateBeginning[iLine]);
 		
 		// On ajoute a la liste la difference en jours entre 2 dates.
-		//difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
-		difference[iLine]=(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
-			console.log("difference["+iLine+"] = "+difference[iLine]);
+		difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
+		//difference[iLine]=(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
+			//console.log("difference["+iLine+"] = "+difference[iLine]);
 	}
+	console.log("difference["+5+"]="+difference[5]);
+	console.log("difference["+10+"]="+difference[10]);
+	console.log("difference["+15+"]="+difference[15]);
 	
+	//console.log(difference);
 	// On recupere la valeur minimale de la liste et on la stocke dans la variable min.
-	var min = Math.min.apply(null, difference);
+	//var min = Math.min.apply(null, difference);
+	var min = Math.min.apply(null,difference);
 		console.log("min = "+min);
 	
 	// On recupere l'indice de la valeur minimale de la liste.
@@ -148,18 +156,21 @@ function VisibiliteTempsReel(tableau)
 		console.log("ContenuStations = "+ContenuStations);
 	
 	var iLine2;
-		console.log("iLine2 = "+iLine2);
 	// On initialise 1 nouveau tableau.
 	var ligne2 =  new Array;
-		console.log("ligne2 = "+ligne2);
 	// On recupere la taille du fichier.
-	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-		console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
+	var nombre_de_lignes_au_total2=ContenuStations.split(/\n/g).length-1;
+		console.log("nombre_de_lignes_au_total2 = "+nombre_de_lignes_au_total2);
+		
+	var autreTableau=new Array;
+	
 	// On parcourt les lignes du fichier.
-	for( var iLine2=0 ; iLine2<nombre_de_lignes_au_total ; iLine2++)
+	for( var iLine2=0 ; iLine2<nombre_de_lignes_au_total2 ; iLine2++)
 	{
+		autreTableau[iLine2]=new Array;
+		
 		// Dans le tableau de lignes, on insere chaque ligne du fichier.
-		ligne2[iLine2]=Contenu.split(/\n/g)[iLine2];
+		ligne2[iLine2]=ContenuStations.split(/\n/g)[iLine2];
 			console.log("ligne2[iLine2] = "+ligne2[iLine2]);
 		
 		// On cree un objet representant une expression rationnelle permettant de reconnaitre
@@ -173,13 +184,28 @@ function VisibiliteTempsReel(tableau)
 			console.log("reg = "+reg);
 		
 		// Dans un autre tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
-		var autreTableau = ligne2[iLine2].split(reg);
-			console.log("autreTableau = "+autreTableau);
+		//var autreTableau = ligne2[iLine2].split(reg);
+		var nouvelleLigne = ligne2[iLine2].split(reg);
+			console.log("nouvelleLigne = "+nouvelleLigne);
+		
+		autreTableau[iLine2][0]=nouvelleLigne[0];
+		console.log("autreTableau[iLine2][0] = "+autreTableau[iLine2][0]);
+		autreTableau[iLine2][1]=nouvelleLigne[1];
+		console.log("autreTableau[iLine2][1] = "+autreTableau[iLine2][1]);
+		autreTableau[iLine2][2]=nouvelleLigne[2];
+		autreTableau[iLine2][3]=nouvelleLigne[3];
+		
+		console.log("Taille de tableau :"+tableau.length);
+		
+		console.log("tableau["+position+"][1]="+tableau[position][1]);
+		console.log("tableau["+position+"][2]="+tableau[position][2]);
+		console.log("tableau["+position+"][3]="+tableau[position][3]);
+		
 		
 		
 		// On appelle la fontion elevation.
 		//point(tableau[2],tableau[1],tableau[0],fichier);
-		elevation(autreTableau[2], autreTableau[1], autreTableau[3], tableau[position][1], tableau[position][2], tableau[position][3], 5);
+		elevation(autreTableau[iLine2][1], autreTableau[iLine2][2], autreTableau[iLine2][3], tableau[position][1], tableau[position][2], tableau[position][3], 5);
 	}
 	
 	// On controle dans la console.
@@ -226,7 +252,7 @@ myCode();
 
 
 // Fonction qui determine si un satellite est dans le cone de visibilite d'une station ou pas.
-function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){
+function elevation(LonStation,latStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){
 		console.log("latStation = "+latStation);
 		console.log("LonStation = "+LonStation);
 		console.log("hStation = "+hStation);
@@ -252,13 +278,13 @@ function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleL
 	// 1) Passage d'un repere geocentrique a un repere local, de centre le station. 
 
 	// On calcule la matrice de changement de repere pour une station.
-	var matriceChangementRepere= Math.matrix([-Math.sin(LonStation),Math.cos(LonStation),0],[-Math.sin(latStation)*Math.cos(LonStation),-Math.sin(latStation)*Math.sin(LonStation),Math.cos(latStation)],[Math.cos(latStation)*Math.cos(LonStation),Math.cos(latStation)*Math.sin(LonStation),Math.sin(latStation)]);
+	var matriceChangementRepere= Math.matrix([[-Math.sin(LonStation),Math.cos(LonStation),0],[-Math.sin(latStation)*Math.cos(LonStation),-Math.sin(latStation)*Math.sin(LonStation),Math.cos(latStation)],[Math.cos(latStation)*Math.cos(LonStation),Math.cos(latStation)*Math.sin(LonStation),Math.sin(latStation)]]);
 		console.log("matriceChangementRepere = "+matriceChangementRepere);
 	
 	// 
-	var matriceSat= Math.matrix([X_GRASP-N*Math.cos(LonStation)*Math.cos(latStation)],
+	var matriceSat= Math.matrix([[X_GRASP-N*Math.cos(LonStation)*Math.cos(latStation)],
 								[Y_GRASP-N*Math.sin(LonStation)*Math.cos(latStation)],
-								[Z_GRASP-N*(1-Math.pow(e,2))*Math.sin(latStation)]);
+								[Z_GRASP-N*(1-Math.pow(e,2))*Math.sin(latStation)]]);
 		console.log("matriceSat = "+matriceSat);
 
 	// On calcule les nouvelles coordonnees du satellite dans le repere local.
