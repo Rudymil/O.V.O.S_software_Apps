@@ -63,16 +63,16 @@ function icrf(scene,time)
     { // si affichage en 3D globe
     		//console.log("if scene.mode = "+scene.mode+" === Cesium.SceneMode.SCENE3D = "+Cesium.SceneMode.SCENE3D);
 	    var icrfToFixed = Cesium.Transforms.computeIcrfToFixedMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur du Repere international de référence celeste (FRGC / ITRF) cadre inertiel axes aux axes de chassis fixes terrestres (ITRF) a un moment donné. Cette fonction peut retourner undefined si les données nécessaires pour faire la transformation ne sont pas encore charges.
-	    	console.log("icrfToFixed = "+icrfToFixed);
+	    	//console.log("icrfToFixed = "+icrfToFixed);
 	    if(Cesium.defined(icrfToFixed))
 	    {
 	    		//console.log("if(Cesium.defined(icrfToFixed)){");
 	        var camera = viewer.camera;
 	        	//console.log("camera = "+camera);
 	        var offset = Cesium.Cartesian3.clone(camera.position);
-	        	console.log("offset = "+offset);
+	        	//console.log("offset = "+offset);
 	        var transform = Cesium.Matrix4.fromRotationTranslation(icrfToFixed);
-	        	console.log("transform = "+transform);
+	        	//console.log("transform = "+transform);
 	        camera.lookAtTransform(transform, offset);
 				//console.log("camera.lookAtTransform(transform, offset);");
 				//console.log("}");
@@ -108,16 +108,16 @@ function itrf(scene,time)
 	{ // si affichage en 3D globe
 			//console.log("scene.mode = "+scene.mode+"; Cesium.SceneMode.SCENE3D = "+Cesium.SceneMode.SCENE3D);
 	    var fixedToIcrf = Cesium.Transforms.computeFixedToIcrfMatrix(time); // Calcule une matrice de rotation pour transformer un point ou vecteur des axes de chassis fixes terrestres (ITRF) au Cadre international de reference celeste (ICRF / ICRF) cadre inertiel axes a un moment donne. Cette fonction peut retourner undefined si les donnees necessaires pour faire la transformation ne sont pas encore charges.
-	    	console.log("fixedToIcrf = "+fixedToIcrf);
+	    	//console.log("fixedToIcrf = "+fixedToIcrf);
 	    if(Cesium.defined(fixedToIcrf))
 	    {
 	    		//console.log("if(Cesium.defined(fixedToIcrf)){");
 	        var camera = viewer.camera;
 	        	//console.log("camera = "+camera);
 	        var offset = Cesium.Cartesian3.clone(camera.position);
-	        	console.log("offset = "+offset);
+	        	//console.log("offset = "+offset);
 	        var transform = Cesium.Matrix4.fromRotationTranslation(fixedToIcrf);
-	        	console.log("transform = "+transform);
+	        	//console.log("transform = "+transform);
 	        camera.lookAtTransform(transform, offset);
 	        	//console.log("camera.lookAtTransform(transform, offset);");
 	        	//console.log("}");

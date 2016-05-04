@@ -79,44 +79,44 @@ function VisibiliteTempsReel(tableau)
 	// On recupere le nombre de secondes au sein du jour julien courant.
 	// Les secondes fractionees, negatives et les secondes superieurs a une journee sont gerees.
 	var seconds = viewer.clock.currentTime.secondsOfDay;
-		//console.log("seconds = "+seconds);
+		console.log("seconds = "+seconds);
 	
 	// On recupere le jour courant en julien.
 	// Les jours fractiones sont geres.
 	var julianDay = viewer.clock.currentTime.dayNumber;
-		//console.log("julianDay = "+julianDay);
+		console.log("julianDay = "+julianDay);
 	
 	// On recupere une date julien astronomique (nb de jours depuis le 1er janvier -4712 apres-midi)
 	// -julianDayNumber : Nombre de jours entiers;
 	// -secondsOfDay : Nombre de secondes au sein du jour julien courant;
 	// -timeStandard : Temps standard dans lequel les 2 premiers parametres sont definis.
 	var dateViewer = new Cesium.JulianDate(julianDay, seconds, Cesium.TimeStandard.UTC);
-		//console.log("dateViewer = "+dateViewer);
+		console.log("dateViewer = "+dateViewer);
 	
 	// On cree un tableau dans lequel on stockera les dates de debut de visibilite.
 	var julianDateBeginning = new Array();
-		//console.log("julianDateBeginning = "+julianDateBeginning);
+		console.log("julianDateBeginning = "+julianDateBeginning);
 	
 	// 1ere date.
 	// Creation d'une nouvelle instance d'une date ISO8601.
 	// Prend en parametre une date en chaine de caracteres.
 	// Renvoie une date julien.
 	julianDateBeginning [0] = Cesium.JulianDate.fromIso8601('2012-03-15T10:00:00Z');
-		//console.log("julianDateBeginning = "+julianDateBeginning);
+		console.log("julianDateBeginning = "+julianDateBeginning);
 	
 	// On cree une liste.
 	var difference = new Array;
-		//console.log("difference = "+difference);
+		console.log("difference = "+difference);
 	
 	// On definit la fin de l'intervalle de temps (1er argument de la derniere ligne du fichier).
 	nombre_de_lignes_au_total=tableau.length;
-		//console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
+		console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
 	var maxTemps=tableau[nombre_de_lignes_au_total-1][0];
-		//console.log("maxTemps = "+maxTemps);
+		console.log("maxTemps = "+maxTemps);
 	
 	// On definit un pas.
 	var pas=maxTemps/(nombre_de_lignes_au_total-3);
-		//console.log("pas = "+pas);
+		console.log("pas = "+pas);
 	
 	// On parcourt les lignes du fichier.
 	for( var iLine=1 ; iLine<nombre_de_lignes_au_total+1 ; iLine++ )
@@ -126,41 +126,41 @@ function VisibiliteTempsReel(tableau)
 		// -seconds : nombre de secondes a ajouter (>0) ou a soustraire (si <0);
 		// -result : une instance existante a utiliser pour le resultat.
 		julianDateBeginning[iLine] = Cesium.JulianDate.addSeconds(julianDateBeginning[iLine-1], pas, new Cesium.JulianDate());
-			//console.log("julianDateBeginning["+iLine+"] = "+julianDateBeginning[iLine]);
+			console.log("julianDateBeginning["+iLine+"] = "+julianDateBeginning[iLine]);
 		
 		// On ajoute a la liste la difference en jours entre 2 dates.
 		//difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
 		difference[iLine]=(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
-			//console.log("difference["+iLine+"] = "+difference[iLine]);
+			console.log("difference["+iLine+"] = "+difference[iLine]);
 	}
 	
 	// On recupere la valeur minimale de la liste et on la stocke dans la variable min.
 	var min = Math.min.apply(null, difference);
-		//console.log("min = "+min);
+		console.log("min = "+min);
 	
 	// On recupere l'indice de la valeur minimale de la liste.
 	// (debut de l'affichage des stations et des satellites : c'est notre temps de reference).
 	var position = difference.indexOf(min);
-		//console.log("position = "+position);
+		console.log("position = "+position);
 	
 	// On recupere le contenu d'un fichier station.
 	var ContenuStations = Fichier('../data/Networks_Stations/Network_NEN_ell');
-		//console.log("ContenuStations = "+ContenuStations);
+		console.log("ContenuStations = "+ContenuStations);
 	
 	var iLine2;
-		//console.log("iLine2 = "+iLine2);
+		console.log("iLine2 = "+iLine2);
 	// On initialise 1 nouveau tableau.
 	var ligne2 =  new Array;
-		//console.log("ligne2 = "+ligne2);
+		console.log("ligne2 = "+ligne2);
 	// On recupere la taille du fichier.
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-		//console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
+		console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
 	// On parcourt les lignes du fichier.
 	for( var iLine2=0 ; iLine2<nombre_de_lignes_au_total ; iLine2++)
 	{
 		// Dans le tableau de lignes, on insere chaque ligne du fichier.
 		ligne2[iLine2]=Contenu.split(/\n/g)[iLine2];
-			//console.log("ligne2[iLine2] = "+ligne2[iLine2]);
+			console.log("ligne2[iLine2] = "+ligne2[iLine2]);
 		
 		// On cree un objet representant une expression rationnelle permettant de reconnaitre
 		// un motif au sein d'une chaine de caracteres.
@@ -170,11 +170,11 @@ function VisibiliteTempsReel(tableau)
 		//		+ g:expression analysee globalement sur l'ensemble de la chaine;
 		//		+ gi:les 2.
 		var reg=new RegExp("[        ]+", "g");
-			//console.log("reg = "+reg);
+			console.log("reg = "+reg);
 		
 		// Dans un autre tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
 		var autreTableau = ligne2[iLine2].split(reg);
-			//console.log("autreTableau = "+autreTableau);
+			console.log("autreTableau = "+autreTableau);
 		
 		
 		// On appelle la fontion elevation.
@@ -186,8 +186,8 @@ function VisibiliteTempsReel(tableau)
 		console.log("dateViewer = "+dateViewer);
 		console.log("x: "+tableau[position][1],"y: "+tableau[position][2],"z: "+tableau[position][3]);
 	var difference2 = Cesium.JulianDate.daysDifference(dateViewer,julianDateBeginning[1]);
-	console.log("difference2 = "+difference2);
-	console.log("} // VisibiliteTempsReel");
+		console.log("difference2 = "+difference2);
+		console.log("} // VisibiliteTempsReel");
 }
 
 var tableau=PositionSatellite();
