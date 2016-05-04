@@ -1,3 +1,6 @@
+// Controle de chargement du fichier
+console.log("visibilite_gps.js chargé"); 
+
 // Fonction permettant d'inclure un fichier javascript dans un autre fichier javascript
 function include(fileName)
 {

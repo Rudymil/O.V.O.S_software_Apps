@@ -1,5 +1,5 @@
 // Controle de chargement du fichier
-console.log("visibilite.js chargé"); 
+console.log("visibilite_stations_2.0.js chargé"); 
 
 //var viewer = new Cesium.Viewer('cesiumContainer');
 
@@ -11,75 +11,27 @@ function include(fileName)
 }
 
 // On insere le fichier affichage.js
-include('affichage.js');
+include('affichage_stations.js');
 
-// Fonction lisant un fichier texte et retournant son contenu dans une chaine de caracteres
-var Fichier = /*function*/ Fichier(fichier)/*{ 
-		console.log("var Fichier = function Fichier(fichier){});
-	// On gere Firefox et autres
-    if(window.XMLHttpRequest) obj = new XMLHttpRequest(); 
-	// On gere Internet Explorer
-    else if(window.ActiveXObject) obj = new ActiveXObject("Microsoft.XMLHTTP"); 
-	// Si la requete n'est pas supportee par le navigateur :
-    else return(false);
-	// On gere Safari
-    if(obj.overrideMimeType) obj.overrideMimeType("text/xml"); 
+var fichier ='SampleData/CZML_ICRF/GRASP_CZML_ICRF/GRASP_ICRF_2.txt';
+	console.log("var fichier ='SampleData/CZML_ICRF/GRASP_CZML_ICRF/GRASP_ICRF_2.txt';");
+	//console.log("fichier = "+fichier);
 	
-	// On ouvre la connexion avec le serveur.
-	// -methode : Get ou POST
-	// -url : la ou on veut envoyer la requete. Si la methode est GET, on met les 
-	//  	  parametres dans l'url.
-	// -flag : true pour un dialogue asynchrone, false Math.sinon.
-    obj.open("GET", fichier, false);
-	
-	// On envoie la requete au serveur.
-	// -Si la methode est GET, on met null en parametre.
-	// -Si la methode est POST, on met les parametres a renvoyer sous la forme :
-	//	"nomparam1=valeurparam1&nomparam2=valeurparam2"
-    obj.send(null);
-	
-	// readyState represente l'etat de l'objet :
-	// -0:non initialise;
-	// -1:ouverture (open() vient de s'exécuter);
-	// -2:envoyé (send() vient de s'exécuter);
-	// -3:en cours (des données sont en train d'arriver);
-	// -4:prêt (toutes les données sont chargées).
-	// Donc si tout est bien charge, on renvoie la reponse.
-    if(obj.readyState == 4) return(obj.responseText);
-    else return(false);
-}*/
-
-/*function Affichage(fichier){
-	var Contenu = Fichier(fichier);
-	var i;
-	var ligne =  new Array;
-	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-	for(var i=0;i<nombre_de_lignes_au_total;i++){
-		ligne[i]=Contenu.split(/\n/g)[i]
-		var reg=new RegExp("[        ]+", "g");
-		var a = ligne[i].split(reg);
-		//if (fichier=='Networks_Stations/Network_IDS_ell'){
-			point(a[2],a[1],a[0],fichier);
-		//}
-	}
-}*/
-
+// On recupere le contenu du fichier.
+var Contenu = Fichier(fichier);
+	console.log("var Contenu = Fichier(fichier);");	
+	//console.log("Contenu = "+Contenu);
 
 // Fonction renvoyant la position approximative du satellite a chaque temps t de l'horloge du viewer.
 // Cette fonction recupere les resultats de la fonction Fichier(fichier) et les affecte au viewer.
-function PositionSatellite(){
+function PositionSatellite()
+{
 		console.log("function PositionSatellite(){");
-	var fichier ='SampleData/CZML_ICRF/GRASP_CZML_ICRF/GRASP_ICRF.txt'; 
-		console.log("fichier = "+fichier);
-	
-	// On recupere le contenu du fichier.
-	var Contenu = Fichier(fichier);	
-	// On controle le resultat dans la console.
-		//console.log("Contenu = "+Contenu);
 	
 	var iLine=0;
-	var iCol=0;
 		//console.log("iLine = "+iLine);
+	var iCol=0;
+		//console.log("iCol = "+iCol);
 	// On initialise 2 nouveaux tableaux.
 	var tableau = new Array();
 		//console.log("tableau = "+tableau);
@@ -112,56 +64,59 @@ function PositionSatellite(){
 			// Dans tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
 			tableau[iLine][iCol] = ligne[iLine+iCol].replace(reg, "");
 		}
-		console.log("tableau["+iLine+"] = "+tableau[iLine][0]+" "+tableau[iLine][1]+" "+tableau[iLine][2]+" "+tableau[iLine][3]);
+			//console.log("tableau["+iLine+"] = "+tableau[iLine][0]+" "+tableau[iLine][1]+" "+tableau[iLine][2]+" "+tableau[iLine][3]);
 		iLine+=4;
 	}
-	
-	//var answers = JSON.parse('Networks_Stations/Satellite.txt');
-	//var widget = new Cesium.CesiumWidget('cesiumContainer');
+	console.log("} // PositionSatellite");
+	return tableau;
+}
+
+
+function VisibiliteTempsReel(tableau)
+{
+		console.log("function VisibiliteTempsReel{")
 	
 	// On recupere le nombre de secondes au sein du jour julien courant.
 	// Les secondes fractionees, negatives et les secondes superieurs a une journee sont gerees.
 	var seconds = viewer.clock.currentTime.secondsOfDay;
-		console.log("seconds = "+seconds);
+		//console.log("seconds = "+seconds);
 	
 	// On recupere le jour courant en julien.
 	// Les jours fractiones sont geres.
 	var julianDay = viewer.clock.currentTime.dayNumber;
-		console.log("julianDay = "+julianDay);
-	
-	
-	//var Julian=Cesium.JulianDate(2441317, 43210.0, TimeStandard.TAI)
-	//var julianDate = new Cesium.JulianDate();
+		//console.log("julianDay = "+julianDay);
 	
 	// On recupere une date julien astronomique (nb de jours depuis le 1er janvier -4712 apres-midi)
 	// -julianDayNumber : Nombre de jours entiers;
 	// -secondsOfDay : Nombre de secondes au sein du jour julien courant;
 	// -timeStandard : Temps standard dans lequel les 2 premiers parametres sont definis.
 	var dateViewer = new Cesium.JulianDate(julianDay, seconds, Cesium.TimeStandard.UTC);
-		console.log("dateViewer = "+dateViewer);
+		//console.log("dateViewer = "+dateViewer);
 	
 	// On cree un tableau dans lequel on stockera les dates de debut de visibilite.
 	var julianDateBeginning = new Array();
-		console.log("julianDateBeginning = "+julianDateBeginning);
+		//console.log("julianDateBeginning = "+julianDateBeginning);
 	
 	// 1ere date.
 	// Creation d'une nouvelle instance d'une date ISO8601.
 	// Prend en parametre une date en chaine de caracteres.
 	// Renvoie une date julien.
 	julianDateBeginning [0] = Cesium.JulianDate.fromIso8601('2012-03-15T10:00:00Z');
-		console.log("julianDateBeginning = "+julianDateBeginning);
+		//console.log("julianDateBeginning = "+julianDateBeginning);
 	
 	// On cree une liste.
-	var difference = [];
-		console.log("difference = "+difference);
+	var difference = new Array;
+		//console.log("difference = "+difference);
 	
 	// On definit la fin de l'intervalle de temps (1er argument de la derniere ligne du fichier).
+	nombre_de_lignes_au_total=tableau.length;
+		//console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
 	var maxTemps=tableau[nombre_de_lignes_au_total-1][0];
-		console.log("maxTemps = "+maxTemps);
+		//console.log("maxTemps = "+maxTemps);
 	
 	// On definit un pas.
 	var pas=maxTemps/(nombre_de_lignes_au_total-3);
-		console.log("pas = "+pas);
+		//console.log("pas = "+pas);
 	
 	// On parcourt les lignes du fichier.
 	for( var iLine=1 ; iLine<nombre_de_lignes_au_total+1 ; iLine++ )
@@ -171,41 +126,41 @@ function PositionSatellite(){
 		// -seconds : nombre de secondes a ajouter (>0) ou a soustraire (si <0);
 		// -result : une instance existante a utiliser pour le resultat.
 		julianDateBeginning[iLine] = Cesium.JulianDate.addSeconds(julianDateBeginning[iLine-1], pas, new Cesium.JulianDate());
-			console.log("julianDateBeginning = "+julianDateBeginning);
+			//console.log("julianDateBeginning["+iLine+"] = "+julianDateBeginning[iLine]);
 		
 		// On ajoute a la liste la difference en jours entre 2 dates.
-		difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
-			console.log("difference = "+difference);
+		//difference.push(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
+		difference[iLine]=(Math.abs(Cesium.JulianDate.daysDifference(julianDateBeginning[iLine],dateViewer)));
+			//console.log("difference["+iLine+"] = "+difference[iLine]);
 	}
 	
 	// On recupere la valeur minimale de la liste et on la stocke dans la variable min.
 	var min = Math.min.apply(null, difference);
-		console.log("min = "+min);
+		//console.log("min = "+min);
 	
 	// On recupere l'indice de la valeur minimale de la liste.
+	// (debut de l'affichage des stations et des satellites : c'est notre temps de reference).
 	var position = difference.indexOf(min);
-	// On controle dans la console.
-		console.log("position = "+position);
+		//console.log("position = "+position);
 	
 	// On recupere le contenu d'un fichier station.
 	var ContenuStations = Fichier('../data/Networks_Stations/Network_NEN_ell');
-		console.log("ContenuStations = "+ContenuStations);
-	
+		//console.log("ContenuStations = "+ContenuStations);
 	
 	var iLine2;
-		console.log("iLine2 = "+iLine2);
+		//console.log("iLine2 = "+iLine2);
 	// On initialise 1 nouveau tableau.
 	var ligne2 =  new Array;
-		console.log("ligne2 = "+ligne2);
+		//console.log("ligne2 = "+ligne2);
 	// On recupere la taille du fichier.
 	var nombre_de_lignes_au_total=Contenu.split(/\n/g).length;
-		console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
+		//console.log("nombre_de_lignes_au_total = "+nombre_de_lignes_au_total);
 	// On parcourt les lignes du fichier.
 	for( var iLine2=0 ; iLine2<nombre_de_lignes_au_total ; iLine2++)
 	{
 		// Dans le tableau de lignes, on insere chaque ligne du fichier.
 		ligne2[iLine2]=Contenu.split(/\n/g)[iLine2];
-			console.log("ligne2[iLine2] = "+ligne2[iLine2]);
+			//console.log("ligne2[iLine2] = "+ligne2[iLine2]);
 		
 		// On cree un objet representant une expression rationnelle permettant de reconnaitre
 		// un motif au sein d'une chaine de caracteres.
@@ -215,16 +170,16 @@ function PositionSatellite(){
 		//		+ g:expression analysee globalement sur l'ensemble de la chaine;
 		//		+ gi:les 2.
 		var reg=new RegExp("[        ]+", "g");
+			//console.log("reg = "+reg);
 		
 		// Dans un autre tableau, on remplit chaque ligne par plusieurs champs separes (plusieurs colonnes).
 		var autreTableau = ligne2[iLine2].split(reg);
-			console.log("autreTableau = "+autreTableau);
+			//console.log("autreTableau = "+autreTableau);
 		
 		
 		// On appelle la fontion elevation.
 		//point(tableau[2],tableau[1],tableau[0],fichier);
 		elevation(autreTableau[2], autreTableau[1], autreTableau[3], tableau[position][1], tableau[position][2], tableau[position][3], 5);
-		console.log("elevation");
 	}
 	
 	// On controle dans la console.
@@ -232,15 +187,10 @@ function PositionSatellite(){
 		console.log("x: "+tableau[position][1],"y: "+tableau[position][2],"z: "+tableau[position][3]);
 	var difference2 = Cesium.JulianDate.daysDifference(dateViewer,julianDateBeginning[1]);
 	console.log("difference2 = "+difference2);
-	console.log("} // PositionSatellite");
+	console.log("} // VisibiliteTempsReel");
 }
 
-// On appelle une fonction de maniere repetee, a intervalle de temps regulier.
-// Ici toutes les 1000 ms, soit toutes les secondes.
-window.setInterval(function()
-{
-	PositionSatellite();
-}, 1000);
+var tableau=PositionSatellite();
 
 // Soit une nouvelle requete.
 var req = new XMLHttpRequest();
@@ -256,20 +206,20 @@ req.send(null);
 
 function myCode()
 {
-	console.log("function myCode(){");
+	//console.log("function myCode(){");
 	// Si toutes les donnees sont chargees :
 	if (req.readyState == 4)
 	{ 
 		// No Comprendo
-		var doc = window[req.responseText];
-		console.log(doc);
-		console.log(req.responseTex);
+		//var doc = window[req.responseText];
+		//console.log(doc);
+		//console.log(req.responseTex);
 	}
 	else
 	{
-		console.log("erreur de requete");
+		//console.log("erreur de requete");
 	}
-	console.log("} // myCode");
+	//console.log("} // myCode");
 }
 
 myCode();
@@ -340,35 +290,4 @@ function elevation(latStation,LonStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleL
 	}
 }
 
-/*
-function ConversionStations(lat,lon,h)
-{
-	
-}
 
-function ConversionGRASP(X,Y,Z)
-{
-	
-}
-
-function ITRFtoPLAN(lat,lon){
-	var matrice= new Matrix3(-Math.sin(lon),Math.cos(lon),0,-Math.sin(lat)*Math.cos(lon),-Math.sin(lat)*Math.sin(lon),Math.cos(lat),Math.cos(lat)*Math.cos(lon),Math.cos(lat)*Math.sin(lon),Math.sin(lat));
-	console.log(matrice);
-}
-*/
-
-//elevation(1000,1000,1000,1000,1000,1000,50);
-
-/*var viewer = new Cesium.Viewer('cesiumContainer');
-var scene = viewer.scene;
-var camera = new Cesium.Camera(scene);
-var time = new Cesium.JulianDate();
-scene.preRender.addEventListener(function(scene, time){
-	var now = new Cesium.JulianDate();
-	var offset = Cesium.Matrix4.multiplyByPoint(camera.transform, camera.position, new Cesium.Cartesian3());
-	var transform = Cesium.Matrix4.fromRotationTranslation(Cesium.Transforms.computeTemeToPseudoFixedMatrix(now));
-	var inverseTransform = Cesium.Matrix4.inverseTransformation(transform, new Cesium.Matrix4());
-	Cesium.Matrix4.multiplyByPoint(inverseTransform, offset, offset);
-	camera.lookAtTransform(transform, offset);
-	//console.log(transform);
-});*/

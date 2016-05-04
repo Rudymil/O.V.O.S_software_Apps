@@ -1,4 +1,4 @@
-console.log("affichage.js chargé"); // affichage dans la console
+console.log("affichage_stations.js chargé"); // affichage dans la console
 
 // contient toutes les fonctions qui permettront la gestion de l affichage
 
@@ -13,7 +13,7 @@ function point(lat, lon, namePoint, fichier)
 			description:'type: Station GNSS',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/GroundStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+				image : 'SampleData/kml/facilities/GroundStation.png', // SampleData/kml/facilities/
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -35,7 +35,7 @@ function point(lat, lon, namePoint, fichier)
 	            positions_GNSS.billboard.scale = 1.5;
 	            positions_GNSS.billboard.color = Cesium.Color.YELLOW;
 	            positions_GNSS.label.show = true;
-	            positions_GNSS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+	            positions_GNSS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'SampleData/kml/facilities/GroundStation.png'.height); // SampleData/kml/facilities/
 	            positions_GNSS.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);         
 	            positions_GNSS.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
 	            positions_GNSS.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
@@ -58,7 +58,7 @@ function point(lat, lon, namePoint, fichier)
 			description:'type: Station Laser',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/LaserStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+				image : 'SampleData/kml/facilities/LaserStation.png', // SampleData/kml/facilities/
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -83,7 +83,7 @@ function point(lat, lon, namePoint, fichier)
 	            positions_Laser.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
 	            positions_Laser.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
 	            positions_Laser.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);
-	            positions_Laser.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+	            positions_Laser.label.pixeloffset = new Cesium.Cartesian2(0.0, -'SampleData/kml/facilities/GroundStation.png'.height); // SampleData/kml/facilities/
 	        }
 			else
 			{
@@ -103,7 +103,7 @@ function point(lat, lon, namePoint, fichier)
 			description:'type: Station VLBI',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/OpticalTrackingStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+				image : 'SampleData/kml/facilities/OpticalTrackingStation.png', // SampleData/kml/facilities/
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -126,7 +126,7 @@ function point(lat, lon, namePoint, fichier)
 	            positions_VLBI.billboard.color = Cesium.Color.YELLOW;
 	            positions_VLBI.label.show = true;
 	            positions_VLBI.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
-	            positions_VLBI.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+	            positions_VLBI.label.pixeloffset = new Cesium.Cartesian2(0.0, -'SampleData/kml/facilities/GroundStation.png'.height); // SampleData/kml/facilities/
 	            positions_VLBI.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);
 	            positions_VLBI.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
 	        }
@@ -148,7 +148,7 @@ function point(lat, lon, namePoint, fichier)
 			description:'type: Station DORIS',
 			position : Cesium.Cartesian3.fromDegrees(lon, lat),
 			billboard : {
-				image : 'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/RadarStation.png', // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+				image : 'SampleData/kml/facilities/RadarStation.png', // SampleData/kml/facilities/
 				width : 20,
 				scaleByDistance : new Cesium.NearFarScalar(1.5e2, 5.0, 1.5e7, 0.7),
 				height : 20
@@ -173,7 +173,7 @@ function point(lat, lon, namePoint, fichier)
 	            positions_DORIS.label.horizontalOrigin = Cesium.HorizontalOrigin.LEFT;
 	            positions_DORIS.label.verticalOrigin = Cesium.VerticalOrigin.BOTTOM;
 	            positions_DORIS.label.position = Cesium.Cartesian3.fromDegrees(lon+10, lat+10);
-	            positions_DORIS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'http://localhost/ProjetDeveloppement2016/Apps/SampleData/kml/facilities/GroundStation.png'.height); // ajouter projet_developpement_2016/ avant Apps si EasyPHP
+	            positions_DORIS.label.pixeloffset = new Cesium.Cartesian2(0.0, -'SampleData/kml/facilities/GroundStation.png'.height); // SampleData/kml/facilities/
 	        }
 			else
 			{
@@ -221,7 +221,7 @@ var Fichier = function Fichier(fichier)
 
 
 // cette fonction est appelee dans le cas ou une station n est pas visible du satellite depuis la station
-function AffichageFaux(lat,lon)
+/*function AffichageFaux(lat,lon)
 { 
 	var positions_VLBI = viewer.entities.add(
 	{
@@ -230,9 +230,4 @@ function AffichageFaux(lat,lon)
 		description:'type: Station pas visibles',
 		position : Cesium.Cartesian3.fromDegrees(lon, lat)
 	});
-}
-	
-//Affichage('../data/Networks_Stations/Network_IDS_ell');
-//Affichage('../data/Networks_Stations/Network_ILRS_ell');
-//Affichage('../data/Networks_Stations/Network_IVS_ell');
-//Affichage('../data/Networks_Stations/Network_NEN_ell');
+}*/
