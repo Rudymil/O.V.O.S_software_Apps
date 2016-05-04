@@ -277,38 +277,54 @@ function elevation(LonStation,latStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleL
 
 	// 1) Passage d'un repere geocentrique a un repere local, de centre le station. 
 
-	// On calcule la matrice de changement de repere pour une station.
-	var matriceChangementRepere= Math.matrix([[-Math.sin(LonStation),Math.cos(LonStation),0],[-Math.sin(latStation)*Math.cos(LonStation),-Math.sin(latStation)*Math.sin(LonStation),Math.cos(latStation)],[Math.cos(latStation)*Math.cos(LonStation),Math.cos(latStation)*Math.sin(LonStation),Math.sin(latStation)]]);
-		console.log("matriceChangementRepere = "+matriceChangementRepere);
+	// On calcule les elements de la 1ere matrice de rotation pour le changement de repere pour une station.
+	var a=-Math.sin(LonStation);
+	var b=Math.cos(LonStation);
+	var c=0;
+	var d=-Math.sin(latStation)*Math.cos(LonStation);
+	var e=-Math.sin(latStation)*Math.sin(LonStation);
+	var f=Math.cos(latStation);
+	var g=Math.cos(latStation)*Math.cos(LonStation);
+	var h=Math.cos(latStation)*Math.sin(LonStation);
+	var i=Math.sin(latStation);
 	
-	// 
-	var matriceSat= Math.matrix([[X_GRASP-N*Math.cos(LonStation)*Math.cos(latStation)],
-								[Y_GRASP-N*Math.sin(LonStation)*Math.cos(latStation)],
-								[Z_GRASP-N*(1-Math.pow(e,2))*Math.sin(latStation)]]);
-		console.log("matriceSat = "+matriceSat);
-
-	// On calcule les nouvelles coordonnees du satellite dans le repere local.
-	var SatLocal=Math.multiply(matriceChangementRepere,matriceSat);
-		console.log("Les coordonnees du satellite dans le repere local sont :"+SatLocal);
+	// On calcule les elements de la 2eme matrice de rotation pour le changement de repere pour une station.
+	var aa=X_GRASP-N*Math.cos(LonStation)*Math.cos(latStation);
+	var bb=Y_GRASP-N*Math.sin(LonStation)*Math.cos(latStation);
+	var cc=Z_GRASP-N*(1-Math.pow(e,2))*Math.sin(latStation);
+	
+	// On calcule les nouvelles coordonnees du satellite dans le repere local, par multiplication de 2 matrices de rotation.
+	
+	var Xlocal=a*aa+b*bb+c*cc;
+	var Ylocal=d*aa+e*bb+f*cc;
+	var Zlocal=g*aa+h*bb+i*cc;
+	console.log("Xlocal="+Xlocal+", Ylocal="+Ylocal+", Zlocal="+Zlocal);
+		//console.log("Les coordonnees du satellite dans le repere local sont :"+SatLocal);
 	
 	// 2) On calcule la distance separant le satellite de la station.
-	var Xlocal=Math.subset(SatLocal, Math.index(1));
-		console.log("Xlocal = "+Xlocal);
-	var Ylocal=Math.subset(SatLocal, Math.index(2));
-		console.log("Ylocal = "+Ylocal);
-	var Zlocal=Math.subset(SatLocal, Math.index(3));
-		console.log("Zlocal = "+Zlocal);
+	
 	var Distance= Math.sqrt(Math.pow(Xlocal,2) + Math.pow(Ylocal,2));
 		console.log("Distance = "+Distance);
 	
 	// 3) On calcule l'angle (en degres) entre le satellite et la verticale a la station.
-	var angleRadian=Math.acos(Zlocal/Distance)*(180/Math.PI);
-		console.log("angleRadian = "+angleRadian);
+	/*var det=Zlocal/Distance;
+	console.log("Zlocal/Distance="+det);
+	
+	var angleRadian=Math.acos(det);
+		console.log("angleRadian = "+angleRadian);*/
+		
+	var det=Xlocal/Distance;
+	console.log("-Xlocal/Distance="+det);
+	var angleRadian=Math.asin(det);
+	console.log("angleRadian = "+angleRadian);
+		
+	var angleDegre=angleRadian*(180/Math.PI);
+		console.log("angleDegre = "+angleDegre);
 	
 	// 4) Si cet angle est inferieur a l'angle delimitant le cone de visibilite, alors le satellite est visible.
-	if(angleDegre<angleLim)
+	if(Math.abs(angleDegre)<angleLim)
 	{
-		console.log("angleDegre = "+angleDegre);
+		console.log("Satellite visible : angleDegre = "+angleDegre);
 	}
 	else
 	{
