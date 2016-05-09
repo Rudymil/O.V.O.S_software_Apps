@@ -188,12 +188,12 @@ function VisibiliteTempsReel(tableau)
 		var nouvelleLigne = ligne2[iLine2].split(reg);
 			console.log("nouvelleLigne = "+nouvelleLigne);
 		
-		autreTableau[iLine2][0]=nouvelleLigne[0];
+		autreTableau[iLine2][0]=nouvelleLigne[0]; // nom
 		console.log("autreTableau[iLine2][0] = "+autreTableau[iLine2][0]);
-		autreTableau[iLine2][1]=nouvelleLigne[1];
+		autreTableau[iLine2][1]=nouvelleLigne[1]; // longitude
 		console.log("autreTableau[iLine2][1] = "+autreTableau[iLine2][1]);
-		autreTableau[iLine2][2]=nouvelleLigne[2];
-		autreTableau[iLine2][3]=nouvelleLigne[3];
+		autreTableau[iLine2][2]=nouvelleLigne[2]; // latitude
+		autreTableau[iLine2][3]=nouvelleLigne[3]; // hauteur
 		
 		console.log("Taille de tableau :"+tableau.length);
 		
