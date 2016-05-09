@@ -197,12 +197,12 @@ function VisibiliteTempsReel(tableau)
 			var nouvelleLigne = ligne2[iLine2].split(reg);
 				//console.log("nouvelleLigne = "+nouvelleLigne);
 			
-			autreTableau[iLine2][0]=nouvelleLigne[0];
+			autreTableau[iLine2][0]=nouvelleLigne[0]; // nom
 				//console.log("autreTableau[iLine2][0] = "+autreTableau[iLine2][0]);
-			autreTableau[iLine2][1]=nouvelleLigne[1];
+			autreTableau[iLine2][1]=nouvelleLigne[1]; // longitude
 				//console.log("autreTableau[iLine2][1] = "+autreTableau[iLine2][1]);
-			autreTableau[iLine2][2]=nouvelleLigne[2];
-			autreTableau[iLine2][3]=nouvelleLigne[3];
+			autreTableau[iLine2][2]=nouvelleLigne[2]; // latitude
+			autreTableau[iLine2][3]=nouvelleLigne[3]; // hauteur
 			
 			//console.log("Taille de tableau :"+tableau.length);
 			
@@ -214,7 +214,7 @@ function VisibiliteTempsReel(tableau)
 			
 			// On appelle la fontion elevation.
 			//point(tableau[2],tableau[1],tableau[0],fichier);
-			elevation(autreTableau[iLine2][0],autreTableau[iLine2][1], autreTableau[iLine2][2], autreTableau[iLine2][3], tableau[position][1], tableau[position][2], tableau[position][3], 5);
+			elevation(autreTableau[iLine2][0],autreTableau[iLine2][1], autreTableau[iLine2][2], autreTableau[iLine2][3], tableau[position][0], tableau[position][1], tableau[position][2], tableau[position][3], 5);
 		}
 		
 		// On controle dans la console.
@@ -262,11 +262,12 @@ myCode();
 
 
 // Fonction qui determine si un satellite est dans le cone de visibilite d'une station ou pas.
-function elevation(NameStation,LonStation,latStation,hStation,X_GRASP,Y_GRASP,Z_GRASP,angleLim){
+function elevation(NameStation,LonStation,latStation,hStation,temps,X_GRASP,Y_GRASP,Z_GRASP,angleLim){
 		//console.log("NameStation = "+NameStation);
 		//console.log("latStation = "+latStation);
 		//console.log("LonStation = "+LonStation);
 		//console.log("hStation = "+hStation);
+		//console.log("temps = "+temps);
 		//console.log("X_GRASP = "+X_GRASP);
 		//console.log("Y_GRASP = "+Y_GRASP);
 		//console.log("Z_GRASP = "+Z_GRASP);
@@ -333,14 +334,15 @@ function elevation(NameStation,LonStation,latStation,hStation,X_GRASP,Y_GRASP,Z_
 		//console.log("angleDegre = "+angleDegre);
 	
 	// 4) Si cet angle est inferieur a l'angle delimitant le cone de visibilite, alors le satellite est visible.
+	console.log("temps = "+temps);
 	if(Math.abs(angleDegre)<angleLim)
 	{
-		console.log("Le Satellite est visible depuis la station "+NameStation);
+		console.log("Le Satellite EST visible depuis la station "+NameStation);
 		console.log("Son angle absolu "+angleDegre+" est inférieur à "+angleLim);
 	}
 	else
 	{
-		console.log("Le Satellite n'est pas visible depuis la station "+NameStation);
+		console.log("Le Satellite N'est PAS visible depuis la station "+NameStation);
 		console.log("Son angle absolu "+angleDegre+" est supérieur ou égal à "+angleLim);
 	}
 }
