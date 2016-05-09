@@ -22,6 +22,8 @@ var Contenu = Fichier(fichier);
 	//console.log("var Contenu = Fichier(fichier);");	
 	//console.log("Contenu = "+Contenu);
 
+var ContenuStations = [Fichier('../data/Networks_Stations/Network_IDS_ell'),Fichier('../data/Networks_Stations/Network_ILRS_ell'),Fichier('../data/Networks_Stations/Network_IVS_ell'),Fichier('../data/Networks_Stations/Network_NEN_ell')];
+
 // Fonction renvoyant la position approximative du satellite a chaque temps t de l'horloge du viewer.
 // Cette fonction recupere les resultats de la fonction Fichier(fichier) et les affecte au viewer.
 function PositionSatellite()
@@ -151,7 +153,7 @@ function VisibiliteTempsReel(tableau)
 	var position = difference.indexOf(min);
 		//console.log("position = "+position);
 	
-	var ContenuStations = [Fichier('../data/Networks_Stations/Network_IDS_ell'),Fichier('../data/Networks_Stations/Network_ILRS_ell'),Fichier('../data/Networks_Stations/Network_IVS_ell'),Fichier('../data/Networks_Stations/Network_NEN_ell')];
+	//var ContenuStations = [Fichier('../data/Networks_Stations/Network_IDS_ell'),Fichier('../data/Networks_Stations/Network_ILRS_ell'),Fichier('../data/Networks_Stations/Network_IVS_ell'),Fichier('../data/Networks_Stations/Network_NEN_ell')];
 	// On recupere le contenu des fichiers station.
 	/*var ContenuStations[1] = Fichier('../data/Networks_Stations/Network_IDS_ell');
 		console.log("ContenuStations[1] = "+ContenuStations[1]);
