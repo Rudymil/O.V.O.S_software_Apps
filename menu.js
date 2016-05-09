@@ -9,7 +9,7 @@ function include(fileName)
 	document.write("<script type='text/javascript' src='"+fileName+"'></script>" ); // Ecrire un texte directement au document HTML
 }
 
-include('visibilite_stations_2.0.js');
+include('visibilite_stations_3.0.js');
 
 //////////////////////////////////// VIEW EVENTS ////////////////////////////////////
 
